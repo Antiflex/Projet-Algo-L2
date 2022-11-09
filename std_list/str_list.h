@@ -1,0 +1,14 @@
+//
+// Created by Alexandre on 17/10/2022.
+//
+
+#ifndef PROJET_ALGO_L2_STR_LIST_H
+#define PROJET_ALGO_L2_STR_LIST_H
+
+#include "str_cell.h"
+
+typedef struct{
+    p_str_cell head;  // liste qui stock les formes fléchies d'un noeud
+}str_list;
+
+#endif //PROJET_ALGO_L2_STR_LIST_H
