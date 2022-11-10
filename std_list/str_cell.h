@@ -5,12 +5,14 @@
 #ifndef PROJET_ALGO_L2_STR_CELL_H
 #define PROJET_ALGO_L2_STR_CELL_H
 
-#include "char_list.h"
+
+#include <string.h>
+
+typedef char* str;
 
 struct s_str_cell
 {
-    t_char_list value;
-    
+    str value;
     struct s_str_cell *next;
 };
 
