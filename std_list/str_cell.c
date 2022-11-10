@@ -3,3 +3,10 @@
 //
 
 #include "str_cell.h"
+
+p_str_cell createCell(str word){
+    p_str_cell pc;
+    pc->value=str;
+    pc->next=NULL;
+    return pc;
+}

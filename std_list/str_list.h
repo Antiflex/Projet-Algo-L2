@@ -11,4 +11,8 @@ typedef struct{
     p_str_cell head;  // liste qui stock les formes fléchies d'un noeud (stock des maillons contenant des str)
 }str_list;
 
+//prototypes
+
+void addHeadList(str_list* list, p_str_cell pc);
+
 #endif //PROJET_ALGO_L2_STR_LIST_H

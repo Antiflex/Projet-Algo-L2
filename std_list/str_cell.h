@@ -18,4 +18,8 @@ struct s_str_cell
 
 typedef struct s_str_cell t_str_cell, *p_str_cell;
 
+//prototypes
+
+p_str_cell createCell(str word)
+
 #endif //PROJET_ALGO_L2_STR_CELL_H
