@@ -12,13 +12,13 @@ p_node createNode(char letter){ // crée un noeud de l'arbre dont la lettre est 
     return pn;
 }
 
-p_child createChild(p_node pn){
+p_child createChild(p_node pn){ // crée un maillon enfant : un maillon qui a pour valeur un p_node
     p_child pc = (p_child) malloc(sizeof(t_child));
     pc->nodeValue = pn;
     return pc;
 }
 
-void addConjForm(p_node pn, cform form){ // ajoute un mot (forme fléchie) à la liste des conjugated forms d'un noeud
+void addConjForm(p_node pn, cform form){ // ajoute un mot (forme de type cform) à la liste des conjugated forms d'un noeud
     pn->nbForms++;
     p_form_cell pc = createCell(form);
     addHeadList(&pn->forms,pc);
@@ -30,7 +30,7 @@ p_node findChild(p_node pn, char letter){ // cherche un p_node dans la liste des
     while(current != NULL && current->nodeValue->letter != letter){
         current = current->next;
     }
-    return current;
+    return current->nodeValue;
 }
 
 void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste des enfants de pn
