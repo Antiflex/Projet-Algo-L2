@@ -41,6 +41,7 @@ void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste de
         p_child newChild = createChild(childNode);
         cList.head = newChild;
         newChild->next = temp;
+        cList.childNb++;
     }
     else{ //(par sécurité mais ne devrait jamais arriver) sinon on fusionne le noeud existant avec le noeud passé en paramètre
         return;
