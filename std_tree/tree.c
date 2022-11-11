@@ -15,12 +15,19 @@ p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'or
     return nodeTab;
 }
 
-void addWord(t_tree* t, str word){ // ajoute un mot (forme de base) à l'arbre
-    p_node* nodeTab = createWordNodeTab(word);
-    int len = strlen(word);
-    p_node current = t->root;
-    for(int i=0; i<len; i++){
-        return;
+void addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'arbre à partir d'un noeud
+   p_node temp = current;
+    for(int i=1; i<strlen(word); i++){
+
+        p_node IsChild = findChild(temp, word[i]); //on cherche si la 2ème lettre existe dans les enfants du noeud current
+        if ( IsChild != NULL){
+            //si la lettre existe :
+            temp = IsChild;
+        }
+        else{
+            p_node new_child= createNode(word[i]);
+            temp = new_child;
+            addChild(temp, new_child);
+        }
     }
-    return;
 }

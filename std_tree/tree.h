@@ -17,7 +17,7 @@ typedef struct s_tree
 //prototypes
 
 p_node* createWordNodeTab(str word);
-void addWord(t_tree* t, str word);
+void addWord(p_node current, str word);
 
 
 #endif //PROJET_ALGO_L2_TREE_H

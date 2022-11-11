@@ -15,6 +15,7 @@ p_node createNode(char letter){ // crée un noeud de l'arbre dont la lettre est 
 p_child createChild(p_node pn){ // crée un maillon enfant : un maillon qui a pour valeur un p_node
     p_child pc = (p_child) malloc(sizeof(t_child));
     pc->nodeValue = pn;
+    pc->next = NULL
     return pc;
 }
 
@@ -30,20 +31,21 @@ p_node findChild(p_node pn, char letter){ // cherche un p_node dans la liste des
     while(current != NULL && current->nodeValue->letter != letter){
         current = current->next;
     }
+    if (current == NULL)
+        return  NULL;
     return current->nodeValue;
 }
 
 void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste des enfants de pn
-    p_node current = findChild(pn,childNode->letter);
     t_children_list cList = pn->children;
-    if(current != NULL){ // s'il n'y pas d'enfant avec cette lettre alors on chaine le nouvel enfant en tête de liste;
+    p_child newChild = createChild(childNode);
+    if(cList.head != NULL){ //la liste n'est pas vide / le noeud possède des enfants
         p_child temp = cList.head;
-        p_child newChild = createChild(childNode);
         cList.head = newChild;
         newChild->next = temp;
-        cList.childNb++;
     }
-    else{ //(par sécurité mais ne devrait jamais arriver) sinon on fusionne le noeud existant avec le noeud passé en paramètre
-        return;
+    else{ //la liste est vide / le noeud ne possède pas d'enfant
+        cList.head = newChild;
     }
+    cList.childNb++;
 }
