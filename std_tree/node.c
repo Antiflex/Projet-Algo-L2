@@ -15,7 +15,7 @@ p_node createNode(char letter){ // crée un noeud de l'arbre dont la lettre est 
 p_child createChild(p_node pn){ // crée un maillon enfant : un maillon qui a pour valeur un p_node
     p_child pc = (p_child) malloc(sizeof(t_child));
     pc->nodeValue = pn;
-    pc->next = NULL
+    pc->next = NULL;
     return pc;
 }
 
@@ -48,4 +48,21 @@ void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste de
         cList.head = newChild;
     }
     cList.childNb++;
+}
+p_node findNode(p_node pn, char c) { // ATTENTION: ne vérifie pas les enfants du noeud donné en argument
+    p_node temp1 = NULL;
+    p_node temp2 = pn;
+    p_child temp3= pn->children.head;
+    temp1 = findChild(pn, c);
+    while (temp1 == NULL && temp3 != NULL) {
+        temp1 = findChild(temp3->nodeValue, c);    // on cherche si la lettre est dans les enfant de pn
+        if (temp3->next != NULL)
+            temp3=temp3->next;
+        else{
+            temp1=findNode(temp2->children.head->nodeValue, c);
+            if (temp1 == NULL)
+                temp1=findNode(temp3->nodeValue, c);
+        }
+    }
+    return temp1;
 }

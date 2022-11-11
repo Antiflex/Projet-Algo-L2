@@ -29,5 +29,5 @@ typedef struct { // structure d'une forme fléchie
 }cform;
 
 //prototypes
-
+cform createCform(str FlexForm, str *attributes);
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H

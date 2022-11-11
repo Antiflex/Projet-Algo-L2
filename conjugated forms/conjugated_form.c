@@ -3,3 +3,8 @@
 //
 
 #include "conjugated_form.h"
+
+cform createCform(str FlexWord, str *attributes){ // a modifier en fonction des fonction de Bastien
+    cform FlexForm;
+    return FlexForm;
+}
