@@ -5,6 +5,7 @@
 #include "tree.h"
 #include <stdlib.h>
 
+
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
                                     // les noeuds créés n'ont aucun lien de parenté
     int len = strlen(word);
@@ -59,23 +60,33 @@ p_node IsWordInTree(t_tree t, str word){//recherche si le mot "word" est une for
 bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire présente dans l'arbre "t"
     // toutes les feuilles de l'arbre représentent une forme de base donc il n'y a aucun cas de parcours de l'arbre qui
     // ne fini pas à un mot, cependant tous les mots sont pas forcément des feuilles donc il ne faut pas les ignorer
+
     p_node current = t.root;
-    int B=1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
+    int B = 1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
+    str word = (str) malloc(sizeof(char));
+    word[0]='\0'; // initialisation de la str qui va contenir le mot que l'on obtient en parcourant l'arbre
+
     while (B){ //tant qu'on doit parcourir l'arbre
 
-        int nextChildIndex = rand()%(current->children.childNb + 1); // l'indice de la prochaine lettre est un nombre
-                                                        // aléatoire compris entre 0 et le nombre d'enfants de current
+        int nextChildIndex = rand()%(current->children.childNb + 1);
+        // l'indice de la prochaine lettre est un nombre
+        // aléatoire compris entre 0 et le nombre d'enfants de current
         p_child nextChild = current->children.head;
         for(int i=0; i<nextChildIndex; i++)
             nextChild = nextChild->next;
+
+        addStrChar(word,current->letter);
 
         if(nextChild->nodeValue->children.childNb == 0) // si le noeud est une feuille alors on s'arrête là
             B = 0;
         else{
             int randFactor = 2;  //sinon alors on a une chance sur randFactor de s'arrêter
-            B = rand()%randFactor; // B prend une valeur entre 0 et randFactor -1
+            B = rand()%randFactor; // B prend une valeur entre 0 et randFactor-1
             B = (B!=0); // si B est différent de 0 alors B prend 1 (= on continue) sinon B est égale à 0 et on s'arrête
         }
     }
-
+    bform result;
+    result.word = word;
+    result.node = current;
+    return result;
 }
