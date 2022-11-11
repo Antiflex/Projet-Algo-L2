@@ -6,6 +6,7 @@
 #define PROJET_ALGO_L2_TREE_H
 
 #include "node.h"
+#include "str.h"
 #define SIZE 10
 
 typedef struct s_tree
@@ -18,6 +19,9 @@ typedef struct s_tree
 
 p_node* createWordNodeTab(str word);
 void addWord(t_tree* t, str word);
-
+int isNodeWord(p_node pn);
+p_node findWordInTree(t_tree t, str word);
+p_node IsWordInTree(t_tree t, str word);
+bform randomBaseFormInTree(t_tree t);
 
 #endif //PROJET_ALGO_L2_TREE_H

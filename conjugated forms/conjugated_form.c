@@ -3,3 +3,9 @@
 //
 
 #include "conjugated_form.h"
+
+/*
+cform createCform(str ){
+
+}
+*/
