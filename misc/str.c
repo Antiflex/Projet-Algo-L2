@@ -20,3 +20,8 @@ void addStrSize(str dest, str addend){ //ajoute la string "addend" à la fin de 
 void addStrChar(str dest, char addend){ //ajoute le char "c" à la fin de "dest" en ajustant la taille physique
     addStrSize(dest, createStrChar(addend));
 }
+
+void copyStr(str* dest, str source){ // copie la str "source" dans "dest" en ajustant la taille physique
+    //realloc()
+    return;
+}
