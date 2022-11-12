@@ -34,7 +34,7 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
    return temp; //retourne la fin du mot /dernière lettre
 }
 
-t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser les fonctions de Bastien
+/* t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser les fonctions de Bastien
     t_tree T;
     T.nature = TypeOfWord;
     //forme de base, fléchie, genre, nombre... de la ligne 1 du dico à récupérer avec les fonctions de bastien
@@ -64,4 +64,4 @@ t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser l
         }
 
     }
-}
+}*/

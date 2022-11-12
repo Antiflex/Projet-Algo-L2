@@ -4,7 +4,9 @@
 
 #include "conjugated_form.h"
 
-cform createCform(str FlexWord, str *attributes){ // a modifier en fonction des fonction de Bastien
-    cform FlexForm;
-    return FlexForm;
+cform createCform(str *attributes, str non_flechie){
+    cform formeFlechie;
+    formeFlechie.attributes= attributes;
+    formeFlechie.word=non_flechie;
+    return formeFlechie;
 }

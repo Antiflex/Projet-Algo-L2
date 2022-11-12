@@ -55,7 +55,7 @@ p_node findNode(p_node pn, char c) { //  Pas utile mais elle reste symboliquemen
     p_child temp3= pn->children.head;
     temp1 = findChild(pn, c);
     while (temp1 == NULL && temp3 != NULL) {
-        temp1 = findChild(temp3->nodeValue, c);    // on cherche si la lettre est dans les enfant de pn
+        temp1 = findChild(temp3->nodeValue, c);    // on cherche si la lettre est dans les enfants de pn
         if (temp3->next != NULL)
             temp3=temp3->next;
         else{
