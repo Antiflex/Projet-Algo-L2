@@ -50,7 +50,7 @@ typedef t_node letter; //facultatif
 
 //structure d'une forme de base (uniquement utilisée pour la recherche aléatoire
 
-typedef struct{
+typedef struct s_bform{
     p_node node;
     str word;
 }bform;

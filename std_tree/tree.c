@@ -2,8 +2,9 @@
 // Created by Alexandre on 17/10/2022.
 //
 
-#include "tree.h"
 #include <stdlib.h>
+#include "tree.h"
+#include "model.h"
 
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
@@ -26,7 +27,7 @@ void addWord(t_tree* t, str word){ // ajoute un mot (forme de base) à l'arbre
     return;
 }
 
-// 4
+// recherche de forme de base
 
 int isNodeWord(p_node pn){
     return pn->nbForms > 0;
@@ -57,6 +58,8 @@ p_node IsWordInTree(t_tree t, str word){//recherche si le mot "word" est une for
         return NULL;                              // sinon on retourne NULL
 }
 
+//extraction de forme de base aléatoire
+
 bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire présente dans l'arbre "t"
     // toutes les feuilles de l'arbre représentent une forme de base donc il n'y a aucun cas de parcours de l'arbre qui
     // ne fini pas à un mot, cependant tous les mots sont pas forcément des feuilles donc il ne faut pas les ignorer
@@ -74,13 +77,14 @@ bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire pr
         p_child nextChild = current->children.head;
         for(int i=0; i<nextChildIndex; i++)
             nextChild = nextChild->next;
+        current=nextChild->nodeValue; //current prend la valeur d'un de ses enfants au hasard
 
-        addStrChar(word,current->letter);
+        addStrChar(word,current->letter); // on ajoute la lettre de current a la str qui contient le mot formé
 
-        if(nextChild->nodeValue->children.childNb == 0) // si le noeud est une feuille alors on s'arrête là
+        if(current->children.childNb == 0) // si le noeud est une feuille alors on s'arrête là
             B = 0;
-        else{
-            int randFactor = 2;  //sinon alors on a une chance sur randFactor de s'arrêter
+        else if(isNodeWord(current)){ // sinon si le noeud qu'on regarde est un mot alors :
+            int randFactor = 2;   //on a une chance sur randFactor de s'arrêter :
             B = rand()%randFactor; // B prend une valeur entre 0 et randFactor-1
             B = (B!=0); // si B est différent de 0 alors B prend 1 (= on continue) sinon B est égale à 0 et on s'arrête
         }
@@ -89,4 +93,12 @@ bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire pr
     result.word = word;
     result.node = current;
     return result;
+}
+
+
+//génération de phrase avec des formes de base
+
+
+bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de p_node
+    return NULL;
 }

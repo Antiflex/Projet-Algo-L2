@@ -7,9 +7,10 @@
 
 #include "node.h"
 #include "str.h"
+#include "model.h"
 #define SIZE 10
 
-typedef struct s_tree
+typedef struct s_tree // structure d'un arbre
 {
     char nature[SIZE]; // précise la nature des mots stockés : nom, verbe, adjectif...
     p_node root; // racine du noeud
