@@ -49,7 +49,7 @@ void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste de
     }
     cList.childNb++;
 }
-p_node findNode(p_node pn, char c) { // ATTENTION: ne vérifie pas les enfants du noeud donné en argument
+p_node findNode(p_node pn, char c) { //  Pas utile mais elle reste symboliquement pour le temps passer à la réaliser TT
     p_node temp1 = NULL;
     p_node temp2 = pn;
     p_child temp3= pn->children.head;
