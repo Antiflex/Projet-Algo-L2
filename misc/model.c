@@ -85,6 +85,8 @@ int model1accords[4] = {-1, 0, 0, -1};
 str model2str[6] = {"nom","qui","verbe","verbe","nom","adjectif"};
 int model2accords[6] = {-1, 0, 1, 1, -1, 4};
 
+//Modèle n°3 :
+
 t_model createConjugatedModel(str* words, int* accords, int wordsNb){
     t_model model = createModel(words,accords,wordsNb);
     conjugateModel(model);
