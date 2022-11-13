@@ -62,6 +62,7 @@ p_child createChild(p_node pn);
 void addConjForm(p_node pn, cform form);
 p_node findChild(p_node pn, char letter);
 void addChild(p_node pn, p_node childNode);
+p_node findNode(p_node pn, char c);
 
 #endif //PROJET_ALGO_L2_NODE_H
 

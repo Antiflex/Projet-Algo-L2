@@ -27,7 +27,7 @@ typedef struct { // structure d'une forme fléchie
      * pour les verbes :
      * 1) le temps (Inf - IPre - IImp - SPre - PPas) ( IXx : indicatif , SXx : subjonctif , PXx participe ..)
      * 2) le nombre de la personne (SG - PL)
-     * 3) le numéro de la personne (P1 - P2 - P3)
+     * 3) le numéro de la personne (1 - 2 - 3)
      * pour les adverbes :
      * 1) un champ invariable (Adv)
      *
@@ -52,8 +52,8 @@ typedef struct { // structure d'une forme fléchie
      * }
      */
 
-
 //prototypes
+cform createCform(str *attributes, str non_flechie, int nbAttributs);
 str concatWordAttributes(t_word word);
 int compareWordWithCform(t_word word, cform form);
 

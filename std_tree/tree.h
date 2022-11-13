@@ -9,16 +9,20 @@
 #include "str.h"
 
 #define SIZE 10
+//#define SIZE 10
 
 typedef struct s_tree // structure d'un arbre
 {
-    char nature[SIZE]; // précise la nature des mots stockés : nom, verbe, adjectif...
+    char *nature; // précise la nature des mots stockés : nom, verbe, adjectif...
     p_node root; // racine du noeud
 } t_tree, *p_tree;
 
 //prototypes
 
 p_node* createWordNodeTab(str word);
+p_node addWord(p_node current, str word);
+t_tree createEmptyTree(char class_gram[]);
+
 void addWord(t_tree* t, str word);
 int isNodeWord(p_node pn);
 p_node findWordInTree(t_tree t, str word);

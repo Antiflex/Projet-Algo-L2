@@ -3,6 +3,8 @@
 //
 #include <stdio.h>
 #include <locale.h>
+#include <locale.h>
+#include "tree.h"
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
 #define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
@@ -136,23 +138,7 @@ int main() {
         }
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
-#include "tree.h"
-#include <time.h>
-#include "files\files.h"
-
-    char mot2[] = "non";
-    addStrChar(&mot1,'0');
-    printf("%s",mot1);
-     */
-    //abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
-    cform forme1;
-    forme1.nbAttributes = 5;
-    forme1.word = calloc(8,sizeof(char));
-    forme1.word = "abaisse";
-    forme1.attributes = calloc(5,sizeof(str));
-    str tab[5] = {"IPre SG P1", "IPre SG P3", "SPre SG P1", "SPre SG P3", "ImPre SG P2"};
-    forme1.attributes = tab;
-
-    printf("a trouver :[%s]\n", concatWordAttributes(model2.words[2]));
-    printf("%d",compareWordWithCform(model2.words[2],forme1));
+>>>>>>>>> Temporary merge branch 2
+    return 0;
 }
+
