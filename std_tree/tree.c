@@ -23,7 +23,6 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
        if ( IsChild != NULL){
             //si la lettre existe :
             temp = IsChild;
-            printf("not ok\n");
        }
        else{ // problème ici
            printf("k\n");

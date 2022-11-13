@@ -7,7 +7,7 @@
 #include <string.h>
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+#define SEEK_fin 1000/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 #include "function.h"
 int main() {
     /**Création des variables pour stocker toutes les informations des fichiers*/
@@ -421,7 +421,9 @@ int main() {
     tmp =tmp->children.head->nodeValue;
     printf("%c", tmp->children.head->nodeValue->letter);
     tmp =tmp->children.head->nodeValue;
-    printf("%c", tmp->children.head->nodeValue->letter);
+    printf("%c\n", tmp->children.head->nodeValue->letter);
+
+    //printf("%c", noms.root->children.head->next->nodeValue->letter);
     return 0;
 };
 
