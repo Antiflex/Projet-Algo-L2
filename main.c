@@ -33,7 +33,7 @@ int main() {
     t_tree adverbes= createEmptyTree("Adverbes");
 
     //Pour comparer et ensuite implémenter dans le bon arbre
-    char class_gram_verbes[]="Ver";
+    char class_gram_verbes[TAILLE_MAX]="Ver";
     char class_gram_noms[]="Nom";
     char class_gram_adjectifs[]="Adj";
     char class_gram_adverbe[]="Adv";
@@ -60,9 +60,13 @@ int main() {
                     isplus(classe_gram);
                     isplus(information3);
                     printf("%s %s %s %s\n", flechie, non_flechie, classe_gram,information3);
+
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
-
+                    for(int q=0; q<i; q++){
+                        printf("%s\n", attributes[q]);
+                    }
+                    printf("%s : %s\n", classe_gram, class_gram_verbes);
                     //Choix de l'arbre où implémenter le mot
                     if (classe_gram == class_gram_verbes){
                         printf("verbe\n");
@@ -115,7 +119,10 @@ int main() {
                     printf("%s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4);
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
-
+                    attributes[1]=information4;
+                    for(int q=0; q<i; q++){
+                        printf("%s\n", attributes[q]);
+                    }
                     //Choix de l'arbre où implémenter le mot
                     if (classe_gram == class_gram_verbes){
                         printf("verbe\n");
@@ -171,6 +178,8 @@ int main() {
                     printf("%s %s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4,information5);
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
+                    attributes[1]=information4;
+                    attributes[2]=information5;
 
                     //Choix de l'arbre où implémenter le mot
                     if (classe_gram == class_gram_verbes){
@@ -230,6 +239,9 @@ int main() {
                     printf("%s %s %s %s %s %s %s \n", flechie, non_flechie, classe_gram,information3,information4,information5,information6);
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
+                    attributes[1]=information4;
+                    attributes[2]=information5;
+                    attributes[3]=information6;
 
                     //Choix de l'arbre où implémenter le mot
                     if (classe_gram == class_gram_verbes){
@@ -292,6 +304,10 @@ int main() {
                     printf("%s %s %s %s %s %s %s %s\n", flechie, non_flechie, classe_gram,information3,information4,information5,information6,information7);
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
+                    attributes[1]=information4;
+                    attributes[2]=information5;
+                    attributes[3]=information6;
+                    attributes[4]=information7;
 
                     //Choix de l'arbre où implémenter le mot
                     if (classe_gram == class_gram_verbes){
