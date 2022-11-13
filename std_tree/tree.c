@@ -23,8 +23,10 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
        if ( IsChild != NULL){
             //si la lettre existe :
             temp = IsChild;
+            printf("not ok\n");
        }
        else{
+           printf("k\n");
            p_node new_child= createNode(word[i]);
            temp = new_child;
            addChild(temp, new_child);
@@ -36,7 +38,7 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
 
 t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root qui a pour valeur ' '
     t_tree T;
-    T.root = createNode(' ');
+    T.root = createNode('0');
     T.nature= class_gram;
     return T;
 }

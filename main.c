@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <locale.h>
 #include "tree.h"
+#include <string.h>
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
 #define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
@@ -63,42 +64,43 @@ int main() {
 
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
-                    for(int q=0; q<i; q++){
-                        printf("%s\n", attributes[q]);
-                    }
-                    printf("%s : %s\n", classe_gram, class_gram_verbes);
+
                     //Choix de l'arbre où implémenter le mot
-                    if (classe_gram == class_gram_verbes){
-                        printf("verbe\n");
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
                         if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adjectifs){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_noms){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            printf("ok\n");
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adverbe){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
                     }
@@ -120,41 +122,42 @@ int main() {
                     // création du tableau d'attributs qui sera ajouté à la forme fléchie de type cform
                     attributes[0]=information3;
                     attributes[1]=information4;
-                    for(int q=0; q<i; q++){
-                        printf("%s\n", attributes[q]);
-                    }
+
                     //Choix de l'arbre où implémenter le mot
-                    if (classe_gram == class_gram_verbes){
-                        printf("verbe\n");
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
                         if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adjectifs){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_noms){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adverbe){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
                     }
@@ -182,37 +185,40 @@ int main() {
                     attributes[2]=information5;
 
                     //Choix de l'arbre où implémenter le mot
-                    if (classe_gram == class_gram_verbes){
-                        printf("verbe\n");
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
                         if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adjectifs){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_noms){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adverbe){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
                     }
@@ -244,37 +250,40 @@ int main() {
                     attributes[3]=information6;
 
                     //Choix de l'arbre où implémenter le mot
-                    if (classe_gram == class_gram_verbes){
-                        printf("verbe\n");
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
                         if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adjectifs){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_noms){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adverbe){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
                     }
@@ -310,37 +319,40 @@ int main() {
                     attributes[4]=information7;
 
                     //Choix de l'arbre où implémenter le mot
-                    if (classe_gram == class_gram_verbes){
-                        printf("verbe\n");
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
                         if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adjectifs){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_noms){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
-                    }else if (classe_gram == class_gram_adverbe){
-                        if (findChild(verbes.root, non_flechie[0]) == NULL){
-                            temp=addWord(createNode(non_flechie[0]),non_flechie);
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
                         }
                         else{
-                            temp= addWord(verbes.root, non_flechie);
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
                         }
                         addConjForm(temp, createCform(attributes, non_flechie, i));
                     }
@@ -359,6 +371,13 @@ int main() {
         }
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
+    printf("%c", noms.root->children.head->nodeValue->letter);
+    p_node tmp = noms.root->children.head->nodeValue;
+    printf("%u\n", tmp->children.head);
+    printf("%c", verbes.root->children.head->nodeValue->letter);
+    tmp = verbes.root->children.head->nodeValue;
+    printf("%u", tmp->children.head);
+    printf("%u", noms.root->children.head->next);
     return 0;
 };
 
