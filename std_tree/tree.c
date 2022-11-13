@@ -4,6 +4,8 @@
 
 #include "tree.h"
 #include <stdlib.h>
+#include "function.h"
+#define MAX 10
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
                                     // les noeuds créés n'ont aucun lien de parenté
@@ -33,6 +35,29 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
        i++;
    }
    return temp; //retourne la fin du mot /dernière lettre
+}
+
+str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str qui utilise ':' comme séparateur
+    int nbStr = isdeuxpoints(string)+1;
+    str* tabStr = (str*) calloc(nbStr, sizeof(str));
+    int strIndex = 0;
+    for(int i =0; i<nbStr; i++){
+        tabStr[i] = (str) calloc(MAX,sizeof(char));
+        strIndex = deuxpoints(string,tabStr[i],strIndex)+1;
+        tabStr[i] = realloc(tabStr[i],(strlen(tabStr[i])+1)*sizeof(char));
+    }
+    return tabStr;
+}
+
+p_node addWordToTree(t_tree tree, str non_flechie, str classe_gram, str information){
+    int nbAttributs = isdeuxpoints(information);
+    str* tabInfo = (str*) calloc(nbAttributs,sizeof(str));
+    int strInfoIndex = 0;
+    strInfoIndex = deuxpoints(information, NULL, strInfoIndex) + 1;
+    for(int i = 0; i< nbAttributs; i++){
+        strInfoIndex = deuxpoints(information, classe_gram, strInfoIndex) + 1;
+
+    }
 }
 
 t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root qui a pour valeur ' '
