@@ -1,12 +1,12 @@
 //
-// Created by marte on 12/11/2022.
+// Created by basti_27sky4h on 25/10/2022.
 //
 
-#ifndef PROJET_ALGO_L2_FUNCTION_H
-#define PROJET_ALGO_L2_FUNCTION_H
-
+#ifndef UNTITLED13_FUNCTION_H
+#define UNTITLED13_FUNCTION_H
+#include <string.h>
 int isdeuxpoints(char* v1);
 int deuxpoints(char* v1,char* v2, int i);
 void isplus(char* v1);
-
-#endif //PROJET_ALGO_L2_FUNCTION_H
+void Emptystr(char* v1);
+#endif //UNTITLED13_FUNCTION_H
