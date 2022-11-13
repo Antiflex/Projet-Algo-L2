@@ -26,8 +26,9 @@ typedef struct { // structure d'une forme fléchie
      * pour les adverbes :
      * 1) un champ invariable (Adv)
      */
+    int nbattributs;
 }cform;
 
 //prototypes
-cform createCform(str *attributes, str non_flechie);
+cform createCform(str *attributes, str non_flechie, int nbAttributs);
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H

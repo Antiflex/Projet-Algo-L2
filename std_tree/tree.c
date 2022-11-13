@@ -34,6 +34,13 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
    return temp; //retourne la fin du mot /dernière lettre
 }
 
+t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root qui a pour valeur ' '
+    t_tree T;
+    T.root = createNode(' ');
+    T.nature= class_gram;
+    return T;
+}
+
 /* t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser les fonctions de Bastien
     t_tree T;
     T.nature = TypeOfWord;

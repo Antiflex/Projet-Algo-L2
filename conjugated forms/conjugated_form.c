@@ -4,9 +4,10 @@
 
 #include "conjugated_form.h"
 
-cform createCform(str *attributes, str non_flechie){
+cform createCform(str *attributes, str non_flechie, int nbAttributs){
     cform formeFlechie;
     formeFlechie.attributes= attributes;
     formeFlechie.word=non_flechie;
+    formeFlechie.nbattributs = nbAttributs;
     return formeFlechie;
 }
