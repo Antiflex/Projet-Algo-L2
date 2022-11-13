@@ -25,11 +25,11 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
             temp = IsChild;
             printf("not ok\n");
        }
-       else{
+       else{ // problème ici
            printf("k\n");
            p_node new_child= createNode(word[i]);
-           temp = new_child;
            addChild(temp, new_child);
+           temp = new_child;
        }
        i++;
    }

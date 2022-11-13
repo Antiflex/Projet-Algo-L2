@@ -53,6 +53,45 @@ int main() {
                 case 0:/**Ici il n'y a pas de deux points on enlève donc juste les plus pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     isplus(information);
                     printf("%s %s %s",flechie,non_flechie,information);
+
+                    if ( !strcmp(classe_gram, class_gram_verbes)){
+                        if (findChild(verbes.root, non_flechie[0]) == NULL){
+                            addChild( verbes.root, createNode(non_flechie[0]));
+                            temp =addWord(verbes.root->children.head->nodeValue,non_flechie);
+                        }
+                        else{
+                            temp= addWord(verbes.root->children.head->nodeValue, non_flechie);
+                        }
+                        addConjForm(temp, createCform(attributes, non_flechie, i));
+                    }else if (!strcmp(classe_gram, class_gram_adjectifs)){
+                        if (findChild(adjectifs.root, non_flechie[0]) == NULL){
+                            addChild( adjectifs.root, createNode(non_flechie[0]));
+                            temp =addWord(adjectifs.root->children.head->nodeValue,non_flechie);
+                        }
+                        else{
+                            temp= addWord(adjectifs.root->children.head->nodeValue, non_flechie);
+                        }
+                        addConjForm(temp, createCform(attributes, non_flechie, i));
+                    }else if (!strcmp(classe_gram, class_gram_noms)){
+                        if (findChild(noms.root, non_flechie[0]) == NULL){
+                            addChild( noms.root, createNode(non_flechie[0]));
+                            temp=addWord(noms.root->children.head->nodeValue,non_flechie);
+                        }
+                        else{
+                            printf("ok\n");
+                            temp= addWord(noms.root->children.head->nodeValue, non_flechie);
+                        }
+                        addConjForm(temp, createCform(attributes, non_flechie, i));
+                    }else if (!strcmp(classe_gram, class_gram_adverbe)){
+                        if (findChild(adverbes.root, non_flechie[0]) == NULL){
+                            addChild( adverbes.root, createNode(non_flechie[0]));
+                            temp =addWord(adverbes.root->children.head->nodeValue,non_flechie);
+                        }
+                        else{
+                            temp= addWord(adverbes.root->children.head->nodeValue, non_flechie);
+                        }
+                        addConjForm(temp, createCform(attributes, non_flechie, i));
+                    }
                     Emptystr(information);
                     break;
                 case 1:/**Ici il y a un seul deux points on l'enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
@@ -373,11 +412,16 @@ int main() {
     }
     printf("%c", noms.root->children.head->nodeValue->letter);
     p_node tmp = noms.root->children.head->nodeValue;
-    printf("%u\n", tmp->children.head);
+    printf("%c\n", tmp->children.head->nodeValue->letter);
     printf("%c", verbes.root->children.head->nodeValue->letter);
     tmp = verbes.root->children.head->nodeValue;
-    printf("%u", tmp->children.head);
-    printf("%u", noms.root->children.head->next);
+    printf("%c", tmp->children.head->next->nodeValue->letter);
+    tmp =tmp->children.head->next->nodeValue;
+    printf("%c", tmp->children.head->nodeValue->letter);
+    tmp =tmp->children.head->nodeValue;
+    printf("%c", tmp->children.head->nodeValue->letter);
+    tmp =tmp->children.head->nodeValue;
+    printf("%c", tmp->children.head->nodeValue->letter);
     return 0;
 };
 
