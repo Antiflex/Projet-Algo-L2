@@ -14,6 +14,8 @@ typedef char* str;
 typedef struct { // structure d'une forme fléchie
     str word; //mot de la forme fléchie
     str* attributes; //attributs de la forme fléchie :
+    int nbAttributes; // nombres d'attributs
+}cform;
     /*
      * les attributs sont dans un tableau de str qui sont expliqués sur moodle
      * les str stockent tous les attributs d'une forme fléchie séparés par des espaces
@@ -49,9 +51,10 @@ typedef struct { // structure d'une forme fléchie
      *  forme2.attributes = ["IImp SG P1","IImp SG P2"]
      * }
      */
-}cform;
+
 
 //prototypes
 str concatWordAttributes(t_word word);
+int compareWordWithCform(t_word word, cform form);
 
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H

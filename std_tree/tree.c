@@ -16,6 +16,8 @@ p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'or
     return nodeTab;
 }
 
+// Virgile est en train de faire cette fonction
+
 void addWord(t_tree* t, str word){ // ajoute un mot (forme de base) à l'arbre
     p_node* nodeTab = createWordNodeTab(word);
     int len = strlen(word);

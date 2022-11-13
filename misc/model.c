@@ -24,7 +24,7 @@ t_word createWord(str category){ // crée un mot : si c'est un nom alors le genr
         result.attributes = (str*) calloc(3,sizeof(str));
         int temps = rand()%TEMPSNB;
         result.attributes[0] = Temps[temps];
-        result.attributes[2] = "3";
+        result.attributes[2] = "P3";
     }
     else{
         result.attributes = (str*) calloc(2,sizeof(str));
@@ -39,7 +39,7 @@ void conjugate(t_word* word, t_word* accord){ // modifie le mot "word" pour l'ac
         word->attributes = accord->attributes;
     else if(!strcmp(word->category, "verbe")) { // un verbe s'accorde en nombre avec le sujet qui est un nom ou un mot prédéterminé
         word->attributes[1] = accord->attributes[1];
-        word->attributes[3] = "3";
+        word->attributes[3] = "P3";
     }
     else
         word->attributes = accord->attributes;
