@@ -14,7 +14,7 @@ typedef char* str;
 //prototypes
 
 str createStrChar(char c);
-void addStrSize(str dest, str addend);
-void addStrChar(str dest, char addend);
+void addStrSize(str* dest, str addend);
+void addStrChar(str* dest, char addend);
 
 #endif //PROJET_ALGO_L2_STR_H

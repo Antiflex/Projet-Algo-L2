@@ -4,7 +4,6 @@
 
 #include <stdlib.h>
 #include "tree.h"
-#include "model.h"
 
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,

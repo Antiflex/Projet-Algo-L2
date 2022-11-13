@@ -10,12 +10,12 @@
 
 typedef struct s_word{ //structure d'un mot pour un modèle de phrase - similaire à celle des formes conjuguées, mais on stocke la catégorie du mot plutôt que le mot lui-même
     str category; //catégorie du mot (nom - verbe - ...) si c'est un mot prédéterminé alors la catégorie sera le mot lui-même, par example dans le modèle 2 : "qui"
-    str* attributes; // attributs du mot, stockés de la même manière que les formes conjuguées sauf qu'il n'y a pas d'attribut invariable
+    str* attributes; // attributs du mot, stockés non pas dans une seule str mais dans un tableau de str et il n'y a pas d'attribut invariable
 }t_word;
 
 typedef t_word* p_word;
 
-typedef struct s_mode { // structure d'un modèle de phrase
+typedef struct s_model { // structure d'un modèle de phrase
     t_word* words; //tableau de mots qui composent la phrase
     int* accords; // tableau des accords entre les mots (expliqué plus bas)
     int wordsNb; //nombre de mots dans la phrase
@@ -41,7 +41,7 @@ typedef struct s_mode { // structure d'un modèle de phrase
 
  mot2{
  category : "verbe"
- attributes : [Temps, "SG" , "3"]  "SG" et "3" sont déterminés par l'accord avec le mot1 "qui" grâce à la fonction conjugate()
+ attributes : [Temps, "SG" , "3"]    "SG" et "3" sont déterminés par l'accord avec le mot1 "qui" grâce à la fonction conjugate()
  }
 
  ...

@@ -7,7 +7,7 @@
 
 #include "node.h"
 #include "str.h"
-#include "model.h"
+
 #define SIZE 10
 
 typedef struct s_tree // structure d'un arbre
