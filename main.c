@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <locale.h>
-#define TAILLE_MAX 1000
-#define SEEK_START 1
-#define SEEK_fin 50
+#define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
+#define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
+#define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 #include "function.h"
 int main() {
+    /**Création des variables pour stocker toutes les informations des fichiers*/
     FILE* fichier = NULL;
     setlocale (LC_CTYPE,"");
     int SEEK_CURR=SEEK_START;
@@ -19,16 +20,21 @@ int main() {
     char information7[TAILLE_MAX] = "";
     int i;
     int j=0;
-    fichier = fopen("dictionnaire_non_accentue.txt", "r");
+    fichier = fopen("dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
 
-    if (fichier != NULL)
+    if (fichier != NULL)/**Teste si le fichier est ouvert*/
     {
-        while(SEEK_CURR<=SEEK_fin) {
-            fscanf(fichier, "%s   %s   %s", flechie, non_flechie, information);
-            i=isdeuxpoints(information);
+        while(SEEK_CURR<=SEEK_fin) {/**On se déplace dans le fichier jusqu'à la valeur donnée*/
+            fscanf(fichier, "%s   %s   %s", flechie, non_flechie, information); /**On récupère les informations du fichier*/
+            i=isdeuxpoints(information); /**On compte le nombre de deux points dans information*/
             j=0;
-            switch (i){
-                case 1:
+            switch (i){/**En fonction du nombre de deux points on change de cas*/
+                case 0:/**Ici il n'y a pas de deux points on enlève donc juste les plus pour pouvoir l'implémenter dans l'abre puis on vide les str*/
+                    isplus(information);
+                    printf("%s %s %s",flechie,non_flechie,information);
+                    Emptystr(information);
+                    break;
+                case 1:/**Ici il y a un seul deux points on l'enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     j= deuxpoints(information,classe_gram,j)+1;
                     deuxpoints(information,information3,j);
                     isplus(classe_gram);
@@ -36,9 +42,12 @@ int main() {
                     printf("%s %s %s %s\n", flechie, non_flechie, classe_gram,information3);
                     SEEK_CURR+=1;
                     fseek(fichier, 20, SEEK_fin);
+                    Emptystr(information);
+                    Emptystr(information3);
+                    Emptystr(classe_gram);
                     break;
 
-                case 2:
+                case 2:/**Ici il y a deux deux points on les enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     j= deuxpoints(information,classe_gram,j)+1;
                     j=deuxpoints(information,information3,j)+1;
                     deuxpoints(information,information4,j);
@@ -48,9 +57,13 @@ int main() {
                     printf("%s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4);
                     SEEK_CURR+=1;
                     fseek(fichier, 20, SEEK_fin);
+                    Emptystr(information);
+                    Emptystr(information3);
+                    Emptystr(classe_gram);
+                    Emptystr(information4);
                     break;
 
-                case 3:
+                case 3:/**Ici il y a trois deux points on les enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     j= deuxpoints(information,classe_gram,j)+1;
                     j=deuxpoints(information,information3,j)+1;
                     j=deuxpoints(information,information4,j)+1;
@@ -62,9 +75,14 @@ int main() {
                     printf("%s %s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4,information5);
                     SEEK_CURR+=1;
                     fseek(fichier, 20, SEEK_fin);
+                    Emptystr(information);
+                    Emptystr(information3);
+                    Emptystr(classe_gram);
+                    Emptystr(information4);
+                    Emptystr(information5);
                     break;
 
-                case 4:
+                case 4:/**Ici il y a quatre deux points on les enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     j= deuxpoints(information,classe_gram,j)+1;
                     j=deuxpoints(information,information3,j)+1;
                     j=deuxpoints(information,information4,j)+1;
@@ -78,9 +96,15 @@ int main() {
                     printf("%s %s %s %s %s %s %s \n", flechie, non_flechie, classe_gram,information3,information4,information5,information6);
                     SEEK_CURR+=1;
                     fseek(fichier, 20, SEEK_fin);
+                    Emptystr(information);
+                    Emptystr(information3);
+                    Emptystr(classe_gram);
+                    Emptystr(information4);
+                    Emptystr(information5);
+                    Emptystr(information6);
                     break;
 
-                case 5:
+                case 5:/**Ici il y a cinq deux points on les enlève et on enlève donc les plus de chaque informations seondaires pour pouvoir l'implémenter dans l'abre puis on vide les str*/
                     j= deuxpoints(information,classe_gram,j)+1;
                     j=deuxpoints(information,information3,j)+1;
                     j=deuxpoints(information,information4,j)+1;
@@ -96,11 +120,18 @@ int main() {
                     printf("%s %s %s %s %s %s %s %s\n", flechie, non_flechie, classe_gram,information3,information4,information5,information6,information7);
                     SEEK_CURR+=1;
                     fseek(fichier, 20, SEEK_fin);
+                    Emptystr(information);
+                    Emptystr(information3);
+                    Emptystr(classe_gram);
+                    Emptystr(information4);
+                    Emptystr(information5);
+                    Emptystr(information6);
+                    Emptystr(information7);
                     break;
 
             }
         }
-        fclose(fichier);
+        fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
     return 0;
 }
