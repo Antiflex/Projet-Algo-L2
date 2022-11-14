@@ -13,35 +13,12 @@
 int main(){
     t_tree verbes = createEmptyTree("verbes");
     p_node current = verbes.root;
-    // avoue	avouer	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
-    char mot[] = "avouer";
-    /*
-    for(int i=0; mot[i] != '\0'; i++) {
-        p_node pn = createNode(mot[i]);
-        addChild(current, pn);
-        printf("%c", current->children.head->nodeValue->letter);
-        current = pn;
-    }
-    str* attrib = getAttributesTab("Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    printf("\n%s",attrib[0]);
-    cform form2 = createCform(attrib, "avoueeeeeee", 5);
-    addHeadList(&current->forms, createCell(form2));
-    current->nbForms++;
-    printf("\nnbform : %d\n",current->nbForms);
-    //current->forms.head = createCell(form1);
-    printf("%c : 1ere forme : %s",current->letter,current->forms.head->value.word);
-    printf("\n%c", verbes.root->children.head->nodeValue->children.head->nodeValue->letter);
-    */
-    //avoue	avouer	Ver:PPas+Mas+SG
-    current = addWordToTree(verbes,"avoue","avouer","Ver:PPas+Mas+SG");
-    current = addWordToTree(verbes,"avouera","avouer","Ver:PPas+Mas+SG");
-    current = addWordToTree(verbes,"avoueeeee","avouer","Ver:PPas+Mas+SG");
-    //brisa	briser	Ver:IPSim+SG+P3
-    current = addWordToTree(verbes,"brisa","briser","Ver");
-    printf("%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value.attributes[0]);
-    p_node find = isWordInTree(verbes, "briser");
-    printf("\nnbform : \n%d",find->nbForms);
+    // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value.word);
 };
+
 
 
 int main1() {
