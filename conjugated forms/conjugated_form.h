@@ -7,8 +7,7 @@
 
 #include <stdlib.h>
 #include "stdio.h"
-#include <string.h>
-typedef char* str;
+#include "str.h"
 
 typedef struct { // structure d'une forme fléchie
     str word; //mot de la forme fléchie

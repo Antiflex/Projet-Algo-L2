@@ -48,6 +48,14 @@ typedef t_child *p_child;
 typedef t_node *p_node;
 typedef t_node letter; //facultatif
 
+//structure d'une forme de base (uniquement utilisée pour la recherche aléatoire
+
+typedef struct s_bform{
+    p_node node;
+    str word;
+}bform;
+
+
 //prototypes
 
 p_node createNode(char letter);

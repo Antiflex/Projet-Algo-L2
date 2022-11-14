@@ -25,4 +25,4 @@ add_executable(Projet_Algo_L2
         misc/str.h
         function.c
         function.h
-        main.c "conjugated forms/conjugated_form.c" "conjugated forms/conjugated_form.h")
+        main.c "conjugated forms/conjugated_form.c" "conjugated forms/conjugated_form.h" dictionnaire_non_accentue.txt)
