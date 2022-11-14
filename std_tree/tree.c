@@ -69,7 +69,7 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     for(int i=0; non_flechie[i] !=0; i++){
         p_node newNode = findChild(currentLetterNode,non_flechie[i]); // on cherche la lettre suivante dans les enfants de current
         if(newNode == NULL) { // si on ne la trouve pas on crée un p_node avec cette lettre et l'ajoute aux enfants de current
-            p_node newNode = createNode(non_flechie[i]);
+            newNode = createNode(non_flechie[i]);
             addChild(currentLetterNode, newNode);
         }
         currentLetterNode = newNode; //on se déplace dans l'enfant pour ensuite répéter
