@@ -67,9 +67,9 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     str* attributes = getAttributesTab(information);
     p_node currentLetterNode = tree.root;
     for(int i=0; non_flechie[i] !=0; i++){
-        p_node newNode = findChild(currentLetterNode,non_flechie[i]); // on cherche la lettre suivante dans les enfants de current
+        p_node newNode = findChild(currentLetterNode,non_flechie[i]);// on cherche la lettre suivante dans les enfants de current
         if(newNode == NULL) { // si on ne la trouve pas on crée un p_node avec cette lettre et l'ajoute aux enfants de current
-            p_node newNode = createNode(non_flechie[i]);
+            newNode = createNode(non_flechie[i]);
             addChild(currentLetterNode, newNode);
         }
         currentLetterNode = newNode; //on se déplace dans l'enfant pour ensuite répéter
@@ -119,3 +119,32 @@ t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root 
 
     }
 }*/
+
+int isNodeWord(p_node pn){
+    return pn->nbForms > 0;
+}
+
+p_node findWordInTree(t_tree t, str word){ // recherche si le mot "word" est une suite de lettres présentes dans l'arbre "t"
+    // retourne le noeud de la dernière lettre si trouvé, NULL sinon
+    p_node temp = t.root;
+    int i = 0; // index de la lettre du mot qu'on recherche
+    while(temp!=NULL && word[i] != '\0'){       // tant qu'on n'est pas arrivé à la dernière du mot et qu'on a trouvé
+        // le noeud de la lettre précédente à rechercher alors :
+        temp = findChild(temp, word[i]);// on cherche la i-ème lettre du mot dans les enfants du (i-1)-ème
+        i++;                                         // noeud puis i++;
+    }
+    if(temp != NULL){ //si on a trouvé toutes les lettres de "word" jusqu'à la dernière alors :
+
+        return temp;     //on retourne le pointeur vers la dernière lettre du mot
+    }
+    else                 //sinon on retourne NULL
+        return NULL;
+}
+
+p_node isWordInTree(t_tree t, str word){//recherche si le mot "word" est une forme de word présente dans l'arbre "t"
+    p_node last = findWordInTree(t, word); // cherche la suite de lettre "word" dans l'arbre
+    if(last != NULL && isNodeWord(last)) // si le mot "word" est trouvé et qu'il représente la forme de base d'un mot
+        return last;                              // on retourne le p_node de la dernière lettre du mot
+    else
+        return NULL;                              // sinon on retourne NULL
+}

@@ -22,5 +22,8 @@ t_tree createEmptyTree(char class_gram[]);
 str* splitStrColon(str string);
 str* getAttributesTab(str information);
 p_node addWordToTree(t_tree tree, str flechie, str non_flechie, str information);
+int isNodeWord(p_node pn);
+p_node findWordInTree(t_tree t, str word);
+p_node isWordInTree(t_tree t, str word);
 
 #endif //PROJET_ALGO_L2_TREE_H
