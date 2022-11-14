@@ -49,15 +49,36 @@ str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str 
     return tabStr;
 }
 
-p_node addWordToTree(t_tree tree, str non_flechie, str classe_gram, str information){
-    int nbAttributs = isdeuxpoints(information);
-    str* tabInfo = (str*) calloc(nbAttributs,sizeof(str));
-    int strInfoIndex = 0;
-    strInfoIndex = deuxpoints(information, NULL, strInfoIndex) + 1;
-    for(int i = 0; i< nbAttributs; i++){
-        strInfoIndex = deuxpoints(information, classe_gram, strInfoIndex) + 1;
-
+str* getAttributesTab(str information){ //retourne un tableau d'attributs utilisables dans une cform
+    int nbAtt = isdeuxpoints(information);
+    str * attTab = (str*) calloc(nbAtt,sizeof(str));
+    str* tab = splitStrColon(information);
+    for(int i=0; i<nbAtt; i++){
+        attTab[i] =tab[i+1];
+        isplus(attTab[i]);
     }
+    free(tab);
+    return attTab;
+}
+
+
+p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
+    int nbAttributes = isdeuxpoints(information);
+    str* attributes = getAttributesTab(information);
+    p_node currentLetterNode = tree.root;
+    for(int i=0; non_flechie[i] !=0; i++){
+        p_node newNode = findChild(currentLetterNode,non_flechie[i]); // on cherche la lettre suivante dans les enfants de current
+        if(newNode == NULL) { // si on ne la trouve pas on crée un p_node avec cette lettre et l'ajoute aux enfants de current
+            p_node newNode = createNode(non_flechie[i]);
+            addChild(currentLetterNode, newNode);
+        }
+        currentLetterNode = newNode; //on se déplace dans l'enfant pour ensuite répéter
+    }
+    cform lastNodeForm = createCform(attributes,flechie,nbAttributes);
+    p_form_cell newFormCell = createCell(lastNodeForm);
+    addHeadList(&currentLetterNode->forms,newFormCell);
+    currentLetterNode->nbForms++;
+    return currentLetterNode;
 }
 
 t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root qui a pour valeur ' '
