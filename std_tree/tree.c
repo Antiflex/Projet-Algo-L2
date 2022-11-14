@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include "tree.h"
 
+#include "function.h"
+#define MAX 10
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
                                     // les noeuds créés n'ont aucun lien de parenté
@@ -26,10 +28,12 @@ p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'
             //si la lettre existe :
             temp = IsChild;
        }
-       else{
+       else{ // problème ici
+           printf("k\n");
            p_node new_child= createNode(word[i]);
            temp = new_child;
            addChild(temp, new_child);
+           temp = new_child;
        }
        i++;
    }
@@ -120,6 +124,50 @@ bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire pr
 
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de p_node
     return NULL;
+}
+
+str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str qui utilise ':' comme séparateur
+    int nbStr = isdeuxpoints(string)+1;
+    str* tabStr = (str*) calloc(nbStr, sizeof(str));
+    int strIndex = 0;
+    for(int i =0; i<nbStr; i++){
+        tabStr[i] = (str) calloc(MAX,sizeof(char));
+        strIndex = deuxpoints(string,tabStr[i],strIndex)+1;
+        tabStr[i] = realloc(tabStr[i],(strlen(tabStr[i])+1)*sizeof(char));
+    }
+    return tabStr;
+}
+
+str* getAttributesTab(str information){ //retourne un tableau d'attributs utilisables dans une cform
+    int nbAtt = isdeuxpoints(information);
+    str * attTab = (str*) calloc(nbAtt,sizeof(str));
+    str* tab = splitStrColon(information);
+    for(int i=0; i<nbAtt; i++){
+        attTab[i] =tab[i+1];
+        isplus(attTab[i]);
+    }
+    free(tab);
+    return attTab;
+}
+
+
+p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
+    int nbAttributes = isdeuxpoints(information);
+    str* attributes = getAttributesTab(information);
+    p_node currentLetterNode = tree.root;
+    for(int i=0; non_flechie[i] !=0; i++){
+        p_node newNode = findChild(currentLetterNode,non_flechie[i]); // on cherche la lettre suivante dans les enfants de current
+        if(newNode == NULL) { // si on ne la trouve pas on crée un p_node avec cette lettre et l'ajoute aux enfants de current
+            newNode = createNode(non_flechie[i]);
+            addChild(currentLetterNode, newNode);
+        }
+        currentLetterNode = newNode; //on se déplace dans l'enfant pour ensuite répéter
+    }
+    cform lastNodeForm = createCform(attributes,flechie,nbAttributes);
+    p_form_cell newFormCell = createCell(lastNodeForm);
+    addHeadList(&currentLetterNode->forms,newFormCell);
+    currentLetterNode->nbForms++;
+    return currentLetterNode;
 }
 
 t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root qui a pour valeur ' '

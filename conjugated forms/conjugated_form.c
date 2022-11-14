@@ -48,8 +48,8 @@ int compareWordWithCform(t_word word, cform form){ // compare une cform avec un 
 }
 cform createCform(str *attributes, str non_flechie, int nbAttributs){
     cform formeFlechie;
-    formeFlechie.attributes= attributes;
-    formeFlechie.word=non_flechie;
+    formeFlechie.attributes = attributes;
+    formeFlechie.word = non_flechie;
     formeFlechie.nbattributs = nbAttributs;
     return formeFlechie;
 }

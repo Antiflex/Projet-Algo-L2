@@ -3,6 +3,7 @@
 //
 
 #include "function.h"
+#include <stdio.h>
 int isdeuxpoints(char* v1){/**On compte le nombre de deux points dans v1 puis on le retourne*/
     int i=0;
     int j=0;
@@ -24,6 +25,7 @@ int deuxpoints(char* v1,char* v2, int i){/**On implémente les caractères conte
     }
     return j;
 }
+
 void isplus(char* v1){/**On remplace les plus contenus dans v1 par des espaces */
     int i=0;
     while(v1[i]!='\0'){

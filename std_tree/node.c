@@ -14,6 +14,8 @@ p_node createNode(char letter){ // crée un noeud de l'arbre dont la lettre est 
 
     pn->forms.head = NULL;
     pn->nbForms = 0;
+    pn->children.head=NULL;
+    pn->children.childNb=0;
     return pn;
 }
 
@@ -42,17 +44,16 @@ p_node findChild(p_node pn, char letter){ // cherche un p_node dans la liste des
 }
 
 void addChild(p_node pn, p_node childNode){ // ajoute un enfant dans la liste des enfants de pn
-    t_children_list cList = pn->children;
     p_child newChild = createChild(childNode);
-    if(cList.head != NULL){ //la liste n'est pas vide / le noeud possède des enfants
-        p_child temp = cList.head;
-        cList.head = newChild;
+    if(pn->children.head != NULL){ //la liste n'est pas vide / le noeud possède des enfants
+        p_child temp = pn->children.head;
+        pn->children.head = newChild;
         newChild->next = temp;
     }
     else{ //la liste est vide / le noeud ne possède pas d'enfant
-        cList.head = newChild;
+        pn->children.head = newChild;
     }
-    cList.childNb++;
+    pn->children.childNb++;
 }
 
 p_node findNode(p_node pn, char c) { //  Pas utile mais elle reste symboliquement pour le temps passer à la réaliser TT

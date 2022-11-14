@@ -6,6 +6,7 @@
 #define PROJET_ALGO_L2_CONJUGATED_FORM_H
 
 #include <stdlib.h>
+#include "stdio.h"
 #include <string.h>
 #include "model.h"
 

@@ -5,7 +5,7 @@
 #include "model.h"
 
 t_word createWord(str category){ // crée un mot : si c'est un nom alors le genre et le nombre sont aléatoire
-                                            // si c'est un verbe alors le temps est aléatoire
+    // si c'est un verbe alors le temps est aléatoire
     t_word result;
     result.category = category;
     //nom
