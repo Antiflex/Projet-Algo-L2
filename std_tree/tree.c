@@ -19,42 +19,35 @@ p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'or
     return nodeTab;
 }
 
-p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'arbre à partir d'un noeud
-   p_node temp = current;
-   int i=1;
-   while (i<strlen(word)){
-       p_node IsChild = findChild(temp, word[i]); //on cherche si la 2ème lettre existe dans les enfants du noeud current
-       if ( IsChild != NULL){
+p_node addWord(p_node current, str word) { // ajoute un mot (forme de base) à l'arbre à partir d'un noeud
+    p_node temp = current;
+    int i = 1;
+    while (i < strlen(word)) {
+        p_node IsChild = findChild(temp,
+                                   word[i]); //on cherche si la 2ème lettre existe dans les enfants du noeud current
+        if (IsChild != NULL) {
             //si la lettre existe :
             temp = IsChild;
-       }
-       else{ // problème ici
-           printf("k\n");
-           p_node new_child= createNode(word[i]);
-           temp = new_child;
-           addChild(temp, new_child);
-           temp = new_child;
-       }
-       i++;
-   }
-   return temp; //retourne la fin du mot /dernière lettre
+        } else { // problème ici
+            printf("k\n");
+            p_node new_child = createNode(word[i]);
+            temp = new_child;
+            addChild(temp, new_child);
+            temp = new_child;
+        }
+        i++;
+    }
+    return temp;
+}//retourne la fin du mot /dernière lettre
 // Virgile est en train de faire cette fonction
 
-void addWord(t_tree* t, str word){ // ajoute un mot (forme de base) à l'arbre
-    p_node* nodeTab = createWordNodeTab(word);
-    int len = strlen(word);
-    p_node current = t->root;
-    for(int i=0; i<len; i++){
-        return;
-    }
-    return;
-}
 
 // recherche de forme de base
 
 int isNodeWord(p_node pn){
     return pn->nbForms > 0;
 }
+
 
 p_node findWordInTree(t_tree t, str word){ // recherche si le mot "word" est une suite de lettres présentes dans l'arbre "t"
                                             // retourne le noeud de la dernière lettre si trouvé, NULL sinon
@@ -65,7 +58,7 @@ p_node findWordInTree(t_tree t, str word){ // recherche si le mot "word" est une
         temp = findChild(temp, word[i]);    // on cherche la i-ème lettre du mot dans les enfants du (i-1)-ème
         i++;                                         // noeud puis i++;
     }
-    if(temp == NULL){ //si on a trouvé toutes les lettres de "word" jusqu'à la dernière alors :
+    if(temp != NULL){ //si on a trouvé toutes les lettres de "word" jusqu'à la dernière alors :
 
         return temp;     //on retourne le pointeur vers la dernière lettre du mot
     }

@@ -4,9 +4,10 @@ project(Projet_Algo_L2 C)
 set(CMAKE_C_STANDARD 11)
 
 include_directories(.)
-include_directories("conjugated forms")
 include_directories(std_tree)
-include_directories(misc)
+include_directories("conjugated forms")
+include_directories("misc")
+include_directories("files")
 
 add_executable(Projet_Algo_L2
         "conjugated forms/form_cell.c"
@@ -19,10 +20,9 @@ add_executable(Projet_Algo_L2
         std_tree/tree.h
         files.c
         files.h
-        misc/model.c
-        misc/model.h
-        misc/str.c
-        misc/str.h
         function.c
         function.h
-        main.c "conjugated forms/conjugated_form.c" "conjugated forms/conjugated_form.h")
+        misc/menu.c
+        misc/menu.h
+        dictionnaire_non_accentue.txt
+        main.c "conjugated forms/conjugated_form.c" "conjugated forms/conjugated_form.h" misc/str.c misc/str.h misc/model.c misc/model.h)

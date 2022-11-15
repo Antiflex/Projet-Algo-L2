@@ -50,6 +50,6 @@ cform createCform(str *attributes, str non_flechie, int nbAttributs){
     cform formeFlechie;
     formeFlechie.attributes = attributes;
     formeFlechie.word = non_flechie;
-    formeFlechie.nbattributs = nbAttributs;
+    formeFlechie.nbAttributes = nbAttributs;
     return formeFlechie;
 }

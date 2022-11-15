@@ -11,7 +11,7 @@
 #define SIZE 10
 //#define SIZE 10
 
-typedef struct s_tree
+typedef struct s_tree // structure d'un arbre
 {
     char *nature; // précise la nature des mots stockés : nom, verbe, adjectif...
     p_node root; // racine du noeud

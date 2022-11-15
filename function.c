@@ -35,6 +35,18 @@ void isplus(char* v1){/**On remplace les plus contenus dans v1 par des espaces *
         i++;
     }
 }
+int choixclasse_gram(char* v1){//On retourne un nombre en fonction de ce qui est indiqué
+    if (!strcmp(v1,"Ver")){
+        return 1;
+    }else if (!strcmp(v1,"Adj")){
+        return 2;
+    }else if (!strcmp(v1,"Adv")){
+        return 3;
+    }else if (!strcmp(v1,"Nom")) {
+        return 4;
+    }
+    return 0;
+}
 void Emptystr(char* v1){/**On vide v1*/
     int i = strlen(v1);
     for(int j = 0;j<i;j++){
