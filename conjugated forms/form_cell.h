@@ -10,7 +10,7 @@
 
 struct s_form_cell
 {
-    cform value;
+    cform* value;
     struct s_form_cell* next;
 };
 
@@ -18,6 +18,6 @@ typedef struct s_form_cell t_form_cell, *p_form_cell;
 
 //prototypes
 
-p_form_cell createCell(cform form);
+p_form_cell createCell(cform* form);
 
 #endif //PROJET_ALGO_L2_FORM_CELL_H

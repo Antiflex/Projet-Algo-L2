@@ -23,7 +23,7 @@ p_child createChild(p_node pn){ // crée un maillon enfant : un maillon qui a po
 
 void addConjForm(p_node pn, cform form){ // ajoute un mot (forme de type cform) à la liste des conjugated forms d'un noeud
     pn->nbForms++;
-    p_form_cell pc = createCell(form);
+    p_form_cell pc = createCell(&form);
     addHeadList(&pn->forms,pc);
 }
 

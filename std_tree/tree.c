@@ -5,7 +5,7 @@
 #include "tree.h"
 #include <stdlib.h>
 #include "function.h"
-#include "model.h"
+
 #define MAX 10
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
@@ -67,7 +67,7 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     int nbAttributes = isdeuxpoints(information);
     str* attributes = getAttributesTab(information);
     p_node currentLetterNode = tree.root;
-    for(int i=0; non_flechie[i] !=0; i++){
+    for(int i=0; non_flechie[i] !='\0'; i++){
         p_node newNode = findChild(currentLetterNode,non_flechie[i]);// on cherche la lettre suivante dans les enfants de current
         if(newNode == NULL) { // si on ne la trouve pas on crée un p_node avec cette lettre et l'ajoute aux enfants de current
             newNode = createNode(non_flechie[i]);
@@ -75,7 +75,9 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
         }
         currentLetterNode = newNode; //on se déplace dans l'enfant pour ensuite répéter
     }
-    cform lastNodeForm = createCform(attributes,flechie,nbAttributes);
+    printf("nodes done : ");
+    cform* lastNodeForm = createCform(attributes,flechie,nbAttributes);
+    printf("%u : ", lastNodeForm->word);
     p_form_cell newFormCell = createCell(lastNodeForm);
     addHeadList(&currentLetterNode->forms,newFormCell);
     currentLetterNode->nbForms++;
@@ -152,18 +154,18 @@ p_node isWordInTree(t_tree tree, str word){//recherche si le mot "word" est une 
         return NULL;                              // sinon on retourne NULL
 }
 
-bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire présente dans l'arbre "t"
+bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire présente dans l'arbre "t"
     // toutes les feuilles de l'arbre représentent une forme de base donc il n'y a aucun cas de parcours de l'arbre qui
     // ne fini pas à un mot, cependant tous les mots sont pas forcément des feuilles donc il ne faut pas les ignorer
-
-    p_node current = t.root;
+    if(tree.root->children.childNb == 0)
+        return;
+    p_node current = tree.root;
     int B = 1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
     str word = (str) malloc(sizeof(char));
     word[0]='\0'; // initialisation de la str qui va contenir le mot que l'on obtient en parcourant l'arbre
 
     while (B){ //tant qu'on doit parcourir l'arbre
-
-        int nextChildIndex = rand()%(current->children.childNb + 1);
+        int nextChildIndex = rand()%(current->children.childNb);
         // l'indice de la prochaine lettre est un nombre
         // aléatoire compris entre 0 et le nombre d'enfants de current
         p_child nextChild = current->children.head;
@@ -190,6 +192,41 @@ bform randomBaseFormInTree(t_tree t){ //retourne une forme de base aléatoire pr
 //génération de phrase avec des formes de base
 
 
-bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de p_node
-    return NULL;
+bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de bform aléatoires selon le model
+    bform* bformTab = (bform*) calloc(phrase.wordsNb,sizeof(bform));
+    for(int i=0; i<phrase.wordsNb; i++){
+        t_word currentWord = phrase.words[i];
+        str currentCategory = currentWord.category;
+        if(!strcmp(currentCategory,"nom")){
+            bformTab[i] = randomBaseFormInTree(nouns);
+        }
+        else if(!strcmp(currentCategory,"verbe")){
+            bformTab[i] = randomBaseFormInTree(verbs);
+        }
+        else if(!strcmp(currentCategory,"adjectif")){
+            bformTab[i] = randomBaseFormInTree(adjectives);
+        }
+        else if(!strcmp(currentCategory,"adverbe")){
+            bformTab[i] = randomBaseFormInTree(adverbs);
+        }
+        else{
+            bformTab[i].word = currentWord.category;
+            bformTab[i].node = NULL;
+        }
+    }
+    return bformTab;
 }
+
+str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //même fonction mais renvoie un str
+    str phraseStr = malloc(sizeof(char));
+    phraseStr[0] = '\0';
+    printf("--before tab gen--\n");
+    bform* bformTab = generateBasePhraseTab(verbs,nouns, adjectives, adverbs, phrase);
+    //printf("%u",bformTab);
+    for(int i=0; i<phrase.wordsNb; i++){
+        addStrSize(&phraseStr,bformTab[i].word);
+        addStrSize(&phraseStr," ");
+    }
+    return phraseStr;
+}
+

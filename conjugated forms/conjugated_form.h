@@ -30,5 +30,7 @@ typedef struct { // structure d'une forme fléchie
 }cform;
 
 //prototypes
-cform createCform(str *attributes, str non_flechie, int nbAttributs);
+void copyAttributesTab(str* dest, str* source, int nbAttributes);
+cform* createCform(str *attributes, str flechie, int nbAttributs);
+void printDevCform(cform form);
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H
