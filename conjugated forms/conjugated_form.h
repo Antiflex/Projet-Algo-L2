@@ -7,13 +7,17 @@
 
 #include <stdlib.h>
 #include "stdio.h"
-#include "str.h"
+#include <string.h>
+typedef char* str;
 
 typedef struct { // structure d'une forme fléchie
     str word; //mot de la forme fléchie
     str* attributes; //attributs de la forme fléchie :
+    int nbAttributes; // nombres d'attributs
+}cform;
     /*
      * les attributs sont dans un tableau de str qui sont expliqués sur moodle
+     * les str stockent tous les attributs d'une forme fléchie séparés par des espaces
      * ils sont stockés dans le même ordre :
      * pour les noms :
      * 1) le genre (Mas - Fem - InvGen)
@@ -25,6 +29,26 @@ typedef struct { // structure d'une forme fléchie
      * 3) le numéro de la personne (1 - 2 - 3)
      * pour les adverbes :
      * 1) un champ invariable (Adv)
+     *
+     *ex : on veut stocker la forme fléchie de :
+     *
+     * abacule	abacule	Nom:Mas+SG
+     * alors on aura
+     *
+     * cform forme1{
+     *  forme1.word = "abacule"
+     *  forme1.attributes = ["Mas SG"]
+     * }
+     *
+     *pour la forme fléchie de :
+     *
+     * abaissais	abaisser	Ver:IImp+SG+P1:IImp+SG+P2
+     * on a
+     *
+     * cform forme2{
+     *  forme2.word = "abaissais"
+     *  forme2.attributes = ["IImp SG P1","IImp SG P2"]
+     * }
      */
     int nbattributs;
 }cform;
@@ -33,4 +57,8 @@ typedef struct { // structure d'une forme fléchie
 void copyAttributesTab(str* dest, str* source, int nbAttributes);
 cform* createCform(str *attributes, str flechie, int nbAttributs);
 void printDevCform(cform form);
+cform createCform(str *attributes, str non_flechie, int nbAttributs);
+str concatWordAttributes(t_word word);
+int compareWordWithCform(t_word word, cform form);
+
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H

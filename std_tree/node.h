@@ -39,7 +39,7 @@ s_node{
     char letter : la lettre du noeud
     t_children_list children : la liste des enfants du noeud (LLC de t_child)
     int nbForms : le nombre de conjugated forms du noeud
-    form_list forms : la liste des conjugated forms (LLC de c_form)
+    form_list forms : la liste des conjugated forms (LLC de cform)
 */
 
 typedef struct s_children_list t_children_list;
@@ -55,6 +55,13 @@ typedef struct s_bform{
     str word;
 }bform;
 
+
+//structure d'une forme de base (uniquement utilisée pour la recherche aléatoire
+
+typedef struct s_bform{
+    p_node node;
+    str word;
+}bform;
 
 //prototypes
 

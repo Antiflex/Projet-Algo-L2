@@ -8,6 +8,11 @@
 p_node createNode(char letter){ // crée un noeud de l'arbre dont la lettre est en paramètre
     p_node pn = (p_node) malloc(sizeof (t_node));
     pn->letter = letter;
+
+    pn->children.head = NULL;
+    pn->children.childNb = 0;
+
+    pn->forms.head = NULL;
     pn->nbForms = 0;
     pn->children.head=NULL;
     pn->children.childNb=0;

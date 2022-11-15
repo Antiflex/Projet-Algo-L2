@@ -32,16 +32,20 @@ typedef struct s_model { // structure d'un modèle de phrase
  category : "nom"
  attributes : [Genre , Nombre] déterminés au hasard dans ce cas
  }
+
  mot1{
  category : "qui"
  attributes : [Genre du mot0 , Nombre du mot0] // les attributs des mots prédéterminés sont une copie de ceux du mot avec lequel il s'accorde
                                                 // dans tous les cas il aura un tableau de la forme [Genre, Nombre]
  }
+
  mot2{
  category : "verbe"
  attributes : [Temps, "SG" , "3"]    "SG" et "3" sont déterminés par l'accord avec le mot1 "qui" grâce à la fonction conjugate()
  }
+
  ...
+
  Model 2{
     Model2.words = {mot0, mot1, mot2, ...}
     Model2.accords = [ -1, 0, 1, 1, -1, 4]
