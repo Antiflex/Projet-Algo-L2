@@ -33,8 +33,8 @@ int main() {
     char information[TAILLE_MAX] = "";
     char classe_gram[TAILLE_MAX] = "";
     int i;
-    int j = 0;
     //int a=menu();
+    /**Ouverture du fichier */
     fichier = fopen("dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
 
     // on crée les différents types d'arbres vides
@@ -42,14 +42,6 @@ int main() {
     t_tree adjectifs= createEmptyTree("Adjectifs");
     t_tree noms= createEmptyTree("Noms");
     t_tree adverbes= createEmptyTree("Adverbes");
-
-    //Pour comparer et ensuite implémenter dans le bon arbre
-    char class_gram_verbes[TAILLE_MAX]="Ver";
-    char class_gram_noms[]="Nom";
-    char class_gram_adjectifs[]="Adj";
-    char class_gram_adverbe[]="Adv";
-
-    p_node temp;
     //Pour implémenter les attributs dans les formes fléchies
     char *attributes[TAILLE_MAX]={"", "", "", "", "", ""};
 
@@ -58,8 +50,8 @@ int main() {
         while (SEEK_CURR <= SEEK_fin) {/**On se déplace dans le fichier jusqu'à la valeur donnée*/
             fscanf(fichier, "%s   %s   %s", flechie, non_flechie,information); /**On récupère les informations du fichier*/
              /**On compte le nombre de deux points dans information*/
-            j = 0;
-            deuxpoints(information,classe_gram,j);
+            p_node temp = malloc(sizeof(t_node));
+            deuxpoints(information,classe_gram,0);
             i = choixclasse_gram(classe_gram);
             Emptystr(classe_gram);
             switch (i) {/**En fonction de l'attribut information on change de cas*/
@@ -78,33 +70,40 @@ int main() {
                     addWordToTree(noms,flechie,non_flechie,information);
                     break;
             }
-            printf("%s\n", temp->forms.head->value.word);
             SEEK_CURR += 1;
-            printf("%s\n",non_flechie);
         }
-        printf("done\n");
-        printf("%u\n",findWordInTree(verbes,"avoir"));
-        printDevModel(createRandomModel1());
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
-        printf("----------\n");
-        bform res;
-        res = randomBaseFormInTree(noms);
-        printf("%u",res.node!= NULL);
-    }
-    printf("%c", noms.root->children.head->nodeValue->letter);
-    p_node tmp = noms.root->children.head->nodeValue;
-    printf("%c\n", tmp->children.head->nodeValue->letter);
-    printf("%c", verbes.root->children.head->nodeValue->letter);
-    tmp = verbes.root->children.head->nodeValue;
-    printf("%c", tmp->children.head->next->nodeValue->letter);
-    tmp =tmp->children.head->next->nodeValue;
-    printf("%c", tmp->children.head->nodeValue->letter);
-    tmp =tmp->children.head->nodeValue;
-    printf("%c", tmp->children.head->nodeValue->letter);
-    tmp =tmp->children.head->nodeValue;
-    printf("%c\n", tmp->children.head->nodeValue->letter);
 
-    //printf("%c", noms.root->children.head->next->nodeValue->letter);
+    }
+    int b=1;
+    do {
+        int a = menu();
+
+        switch (a) {
+            case 1:
+                printDevModel(createRandomModel1());
+                break;
+            case 2:
+                printDevModel(createRandomModel2());
+                break;
+            case 3:
+                printDevModel(createRandomModel3());
+                break;
+            case 4:
+                printDevModel(createRandomModel1());
+                break;
+            case 5:
+                printDevModel(createRandomModel2());
+                break;
+            case 6:
+                printDevModel(createRandomModel3());
+                break;
+        }
+        do{
+            printf("Continuer tapez 1 sinon 0:");
+            scanf("%d",&b);
+        }while(b<0 || b>1);
+    }while (b==1);
     return 0;
 };
 

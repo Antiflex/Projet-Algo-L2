@@ -85,9 +85,9 @@ int model1accords[4] = {-1, 0, 0, -1};
 str model2str[6] = {"nom","qui","verbe","verbe","nom","adjectif"};
 int model2accords[6] = {-1, 0, 1, 1, -1, 4};
 
-//Modèle n°3 :
-str model3str[6] ={"verbe","-vous","verbe","nom","adjectif","?"};
-int model3accords[6]={1, 0,-1,-1,3,-1};
+//Modèle n°3 : nom - verbe - verbe - adjectif - nom
+str model3str[5] ={"nom","verbe","verbe","adjectif","nom"};
+int model3accords[5]={-1, 0,0,4,-1};
 
 t_model createConjugatedModel(str* words, int* accords, int wordsNb){
     t_model model = createModel(words,accords,wordsNb);
@@ -104,5 +104,5 @@ t_model createRandomModel2(){
 }
 
 t_model createRandomModel3(){
-    return createConjugatedModel(model3str,model3accords,6);
+    return createConjugatedModel(model3str,model3accords,5);
 }

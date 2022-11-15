@@ -51,9 +51,9 @@ typedef struct { // structure d'une forme fléchie
      *  forme2.word = "abaissais"
      *  forme2.attributes = ["IImp SG P1","IImp SG P2"]
      * }
+     *
+    *int nbattributs;
      */
-    int nbattributs;
-}cform;
 
 //prototypes
 cform createCform(str *attributes, str non_flechie, int nbAttributs);
