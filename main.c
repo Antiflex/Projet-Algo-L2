@@ -3,8 +3,8 @@
 //
 #include <stdio.h>
 #include <locale.h>
-#include <locale.h>
 #include "tree.h"
+#include <string.h>
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
 #define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
@@ -25,9 +25,9 @@ int main1(){
 int main() {
 
     /**Création des variables pour stocker toutes les informations des fichiers*/
-    FILE *fichier = NULL;
-    setlocale(LC_CTYPE, "");
-    int SEEK_CURR = SEEK_START;
+    FILE* fichier = NULL;
+    setlocale (LC_CTYPE,"");
+    int SEEK_CURR=SEEK_START;
     char flechie[TAILLE_MAX] = "";
     char non_flechie[TAILLE_MAX] = "";
     char information[TAILLE_MAX] = "";
@@ -78,6 +78,7 @@ int main() {
                     addWordToTree(noms,flechie,non_flechie,information);
                     break;
             }
+            printf("%s\n", temp->forms.head->value.word);
             SEEK_CURR += 1;
             printf("%s\n",non_flechie);
         }
@@ -85,7 +86,25 @@ int main() {
         printf("%u\n",findWordInTree(verbes,"avoir"));
         printDevModel(createRandomModel1());
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
+        printf("----------\n");
+        bform res;
+        res = randomBaseFormInTree(noms);
+        printf("%u",res.node!= NULL);
     }
+    printf("%c", noms.root->children.head->nodeValue->letter);
+    p_node tmp = noms.root->children.head->nodeValue;
+    printf("%c\n", tmp->children.head->nodeValue->letter);
+    printf("%c", verbes.root->children.head->nodeValue->letter);
+    tmp = verbes.root->children.head->nodeValue;
+    printf("%c", tmp->children.head->next->nodeValue->letter);
+    tmp =tmp->children.head->next->nodeValue;
+    printf("%c", tmp->children.head->nodeValue->letter);
+    tmp =tmp->children.head->nodeValue;
+    printf("%c", tmp->children.head->nodeValue->letter);
+    tmp =tmp->children.head->nodeValue;
+    printf("%c\n", tmp->children.head->nodeValue->letter);
+
+    //printf("%c", noms.root->children.head->next->nodeValue->letter);
     return 0;
-}
+};
 

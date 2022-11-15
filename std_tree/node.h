@@ -39,7 +39,7 @@ s_node{
     char letter : la lettre du noeud
     t_children_list children : la liste des enfants du noeud (LLC de t_child)
     int nbForms : le nombre de conjugated forms du noeud
-    form_list forms : la liste des conjugated forms (LLC de cform)
+    form_list forms : la liste des conjugated forms (LLC de c_form)
 */
 
 typedef struct s_children_list t_children_list;
