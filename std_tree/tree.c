@@ -57,6 +57,7 @@ str* getAttributesTab(str information){ //retourne un tableau d'attributs utilis
     for(int i=0; i<nbAtt; i++){
         attTab[i] =tab[i+1];
         isplus(attTab[i]);
+        printf("source : %s\n",attTab[i]);
     }
     free(tab);
     return attTab;
@@ -77,7 +78,7 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     }
     printf("nodes done : ");
     cform* lastNodeForm = createCform(attributes,flechie,nbAttributes);
-    printf("%u : ", lastNodeForm->word);
+    printf("%s : ", lastNodeForm->word);
     p_form_cell newFormCell = createCell(lastNodeForm);
     addHeadList(&currentLetterNode->forms,newFormCell);
     currentLetterNode->nbForms++;

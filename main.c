@@ -40,7 +40,7 @@ int main() {
     char class_gram_adverbe[]="Adv";
     //Pour implémenter les attributs dans les formes fléchies
     char *attributes[TAILLE_MAX]={"", "", "", "", "", ""};
-    fichier = fopen("C:\\Users\\a\\CLionProjects\\Projet-Algo-L2\\dictionnaire_non_accentue.txt","r");
+    fichier = fopen("\C:\\Users\\Alexandre\\Downloads\\dictionnaire_non_accentue\\dictionnaire_non_accentue.txt","r");
     printf("%u\n",fichier);
     if (fichier != NULL)/**Teste si le fichier est ouvert*/
     {
@@ -72,8 +72,8 @@ int main() {
         printf("-----tests-----\n");
 
         p_node aba = isWordInTree(verbes,"abaisser");
-        printf("abaisser : %s\n",aba->forms.head->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->value->attributes[0]);
-
+        cform* forme1 = aba->forms.head->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->value;
+        printDevCform(*forme1);
 
         printf("%d\n",noms.root->children.head->nodeValue->nbForms);
         printf("%s\n",noms.root->children.head->nodeValue->forms.head->value->word);
@@ -87,6 +87,7 @@ int main() {
         printf("form printed\n");
         str phrase = generateBasePhraseStr(verbes,noms,adjectifs,adverbes,model1);
         printf("%s",phrase);
+
     }
     return 0;
 };
