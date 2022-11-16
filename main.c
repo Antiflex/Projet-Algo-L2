@@ -2,133 +2,137 @@
 // Created by Alexandre on 17/10/2022.
 //
 #include <stdio.h>
+#include <locale.h>
 #include "tree.h"
 #include <time.h>
-#include "files\files.h"
+#include "function.h"
+#include "menu.h"
+
+#define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
+#define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
+#define SEEK_fin 300/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+
+
+int main1(){
+    t_tree verbes = createEmptyTree("verbes");
+    p_node current = verbes.root;
+    // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value->word);
+};
+
+
 
 int main() {
+    /**initalisation de la see pour l'aléatoire*/
     time_t t;
-    srand(543848484*time(&t));
-    /*
-    FILE* fichier = NULL;
-    setlocale (LC_CTYPE,"");
-    int SEEK_CURR=SEEK_START;
+    srand(time(&t));
+    /**Création des variables pour stocker toutes les informations des fichiers*/
+    FILE *fichier = NULL;
+    setlocale(LC_CTYPE, "");
+    int SEEK_CURR = SEEK_START;
     char flechie[TAILLE_MAX] = "";
     char non_flechie[TAILLE_MAX] = "";
     char information[TAILLE_MAX] = "";
     char classe_gram[TAILLE_MAX] = "";
-    char information3[TAILLE_MAX] = "";
-    char information4[TAILLE_MAX] = "";
-    char information5[TAILLE_MAX] = "";
-    char information6[TAILLE_MAX] = "";
-    char information7[TAILLE_MAX] = "";
     int i;
-    int j=0;
-    fichier = fopen("C:\\Users\\a\\CLionProjects\\Projet-Algo-L2\\files\\dictionnaire_non_accentue.txt", "r");
-    if (fichier != NULL)
+    int j = 0;
+    //int a=menu();
+    fichier = fopen("C:\\Users\\Alexandre\\Downloads\\dictionnaire_non_accentue\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
+    // on crée les différents types d'arbres vides
+    t_tree verbes= createEmptyTree("Verbes");
+    t_tree adjectifs= createEmptyTree("Adjectifs");
+    t_tree noms= createEmptyTree("Noms");
+    t_tree adverbes= createEmptyTree("Adverbes");
+
+    //Pour comparer et ensuite implémenter dans le bon arbre
+    char class_gram_verbes[TAILLE_MAX]="Ver";
+    char class_gram_noms[]="Nom";
+    char class_gram_adjectifs[]="Adj";
+    char class_gram_adverbe[]="Adv";
+
+    p_node temp;
+    //Pour implémenter les attributs dans les formes fléchies
+    char *attributes[TAILLE_MAX]={"", "", "", "", "", ""};
+
+    if (fichier != NULL)/**Teste si le fichier est ouvert*/
     {
-        while(SEEK_CURR<=SEEK_fin) {
-            fscanf(fichier, "%s   %s   %s", flechie, non_flechie, information);
-            i=isdeuxpoints(information);
-            j=0;
-            switch (i){
-                case 1:
-                    j= deuxpoints(information,classe_gram,j)+1;
-                    deuxpoints(information,information3,j);
-                    isplus(classe_gram);
-                    isplus(information3);
-                    printf("%s %s %s %s\n", flechie, non_flechie, classe_gram,information3);
-                    SEEK_CURR+=1;
-                    fseek(fichier, 20, SEEK_fin);
+        while (SEEK_CURR <= SEEK_fin) {/**On se déplace dans le fichier jusqu'à la valeur donnée*/
+            fscanf(fichier, "%s   %s   %s", flechie, non_flechie,information); /**On récupère les informations du fichier*/
+             /**On compte le nombre de deux points dans information*/
+            j = 0;
+            deuxpoints(information,classe_gram,j);
+            i = choixclasse_gram(classe_gram);
+            Emptystr(classe_gram);
+            switch (i) {/**En fonction de l'attribut information on change de cas*/
+                case 0:  //Cas n'étant pas un Nom,Ver,Adj,Adv
                     break;
-
-                case 2:
-                    j= deuxpoints(information,classe_gram,j)+1;
-                    j=deuxpoints(information,information3,j)+1;
-                    deuxpoints(information,information4,j);
-                    isplus(classe_gram);
-                    isplus(information3);
-                    isplus(information4);
-                    printf("%s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4);
-                    SEEK_CURR+=1;
-                    fseek(fichier, 20, SEEK_fin);
+                case 1://Cas étant verbe
+                    addWordToTree(verbes,flechie,non_flechie,information);
                     break;
-
-                case 3:
-                    j= deuxpoints(information,classe_gram,j)+1;
-                    j=deuxpoints(information,information3,j)+1;
-                    j=deuxpoints(information,information4,j)+1;
-                    deuxpoints(information,information5,j);
-                    isplus(classe_gram);
-                    isplus(information3);
-                    isplus(information4);
-                    isplus(information5);
-                    printf("%s %s %s %s %s %s  \n", flechie, non_flechie, classe_gram,information3,information4,information5);
-                    SEEK_CURR+=1;
-                    fseek(fichier, 20, SEEK_fin);
+                case 2://Cas étant adjectif
+                    addWordToTree(adjectifs,flechie,non_flechie,information);
                     break;
-
-                case 4:
-                    j= deuxpoints(information,classe_gram,j)+1;
-                    j=deuxpoints(information,information3,j)+1;
-                    j=deuxpoints(information,information4,j)+1;
-                    j=deuxpoints(information,information5,j)+1;
-                    deuxpoints(information,information6,j);
-                    isplus(classe_gram);
-                    isplus(information3);
-                    isplus(information4);
-                    isplus(information5);
-                    isplus(information6);
-                    printf("%s %s %s %s %s %s %s \n", flechie, non_flechie, classe_gram,information3,information4,information5,information6);
-                    SEEK_CURR+=1;
-                    fseek(fichier, 20, SEEK_fin);
+                case 3://Cas étant adverbe
+                    addWordToTree(adverbes,flechie,non_flechie,information);
                     break;
-
-                case 5:
-                    j= deuxpoints(information,classe_gram,j)+1;
-                    j=deuxpoints(information,information3,j)+1;
-                    j=deuxpoints(information,information4,j)+1;
-                    j=deuxpoints(information,information5,j)+1;
-                    j=deuxpoints(information,information6,j)+1;
-                    deuxpoints(information,information7,j);
-                    isplus(classe_gram);
-                    isplus(information3);
-                    isplus(information4);
-                    isplus(information5);
-                    isplus(information6);
-                    isplus(information7);
-                    printf("%s %s %s %s %s %s %s %s\n", flechie, non_flechie, classe_gram,information3,information4,information5,information6,information7);
-                    SEEK_CURR+=1;
-                    fseek(fichier, 20, SEEK_fin);
+                case 4://Cas étant noms
+                    addWordToTree(noms,flechie,non_flechie,information);
                     break;
             }
+            SEEK_CURR += 1;
+            printf("%s\n",non_flechie);
         }
-        fclose(fichier);
+        /*printf("done\n");
+        printf("%u\n",findWordInTree(verbes,"avoir"));
+        printDevModel(createRandomModel1());
+         */
+        fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
+    printf("\n---------arbre fini-----------\n");
+
+    printf("\n---------tests-----------\n\n");
+    printf("%s\n", randomBaseFormInTree(verbes).word);
+    //searchWordInTree(noms,"a");
+    //printf("\n");
+    printf("\n--------menu--------\n\n");
+    int b=1;
+    do {
+        int a = menu();
+        t_model model;
+        switch (a){
+            case 1:
+                model = createRandomModel1();
+                break;
+            case 2:
+                model = createRandomModel2();
+                break;
+            case 3:
+                model = createRandomModel3();
+                break;
+            case 4:
+                model = createRandomModel3();
+                break;
+            case 5:
+                model = createRandomModel3();
+                break;
+            case 6:
+                model = createRandomModel3();
+                break;
+        }
+        printf("\n");
+        printDevModel(model);
+        printf("\n");
+        do{
+            printf("Continuer tapez 1 sinon 0:");
+            scanf("%d",&b);
+        }while(b<0 || b>1);
+        switch (b) {
+            case 1:
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
+        }
+    }while (b==1);
     return 0;
-    */
-    t_model model2 = createRandomModel2();
-    printDevModel(model2);
-    model2.words[2].attributes[0] = "IPre";
-    model2.words[2].attributes[1] = "SG";
-    model2.words[2].attributes[2] = "P3";
-    /*
-    str mot1 = (str) calloc(4,sizeof(char));
-    //mot1[0]= 'o'; mot1[1]= 'u'; mot1[2]= 'i'; mot1[3]= '\0';
+};
 
-    char mot2[] = "non";
-    addStrChar(&mot1,'0');
-    printf("%s",mot1);
-     */
-    //abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
-    cform forme1;
-    forme1.nbAttributes = 5;
-    forme1.word = calloc(8,sizeof(char));
-    forme1.word = "abaisse";
-    forme1.attributes = calloc(5,sizeof(str));
-    str tab[5] = {"IPre SG P1", "IPre SG P3", "SPre SG P1", "SPre SG P3", "ImPre SG P2"};
-    forme1.attributes = tab;
-
-    printf("a trouver :[%s]\n", concatWordAttributes(model2.words[2]));
-    printf("%d",compareWordWithCform(model2.words[2],forme1));
-}

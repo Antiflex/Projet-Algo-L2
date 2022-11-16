@@ -5,7 +5,7 @@
 #include "model.h"
 
 t_word createWord(str category){ // crée un mot : si c'est un nom alors le genre et le nombre sont aléatoire
-                                            // si c'est un verbe alors le temps est aléatoire
+    // si c'est un verbe alors le temps est aléatoire
     t_word result;
     result.category = category;
     //nom
@@ -33,11 +33,11 @@ t_word createWord(str category){ // crée un mot : si c'est un nom alors le genr
 }
 
 void conjugate(t_word* word, t_word* accord){ // modifie le mot "word" pour l'accorder avec le mot "accord"
-    if(word->category == "nom") //si le mot à accorder est un nom alors on ne fait rien
+    if(!strcmp(word->category,"nom")) //si le mot à accorder est un nom alors on ne fait rien
         return;
     else if(!strcmp(word->category, "adjectif")) //un adjectif s'accorde avec un nom ou un mot prédéterminé donc il aura les mêmes attributs
         word->attributes = accord->attributes;
-    else if(!strcmp(word->category, "verbe")) { // un verbe s'accorde en nombre avec le sujet qui est un nom ou un mot prédéterminé
+    else if(!strcmp(word->category, "verbe")) {// un verbe s'accorde en nombre avec le sujet qui est un nom ou un mot prédéterminé
         word->attributes[1] = accord->attributes[1];
         word->attributes[3] = "P3";
     }
@@ -86,6 +86,8 @@ str model2str[6] = {"nom","qui","verbe","verbe","nom","adjectif"};
 int model2accords[6] = {-1, 0, 1, 1, -1, 4};
 
 //Modèle n°3 :
+str model3str[6] ={"verbe","-vous","verbe","nom","adjectif","?"};
+int model3accords[6]={1, 0,-1,-1,3,-1};
 
 t_model createConjugatedModel(str* words, int* accords, int wordsNb){
     t_model model = createModel(words,accords,wordsNb);
@@ -102,5 +104,5 @@ t_model createRandomModel2(){
 }
 
 t_model createRandomModel3(){
-    return createConjugatedModel(model2str,model2accords,6);
+    return createConjugatedModel(model3str,model3accords,6);
 }
