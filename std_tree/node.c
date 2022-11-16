@@ -73,3 +73,9 @@ p_node findNode(p_node pn, char c) { //  Pas utile mais elle reste symboliquemen
     }
     return temp1;
 }
+
+int isNodeWord(p_node pn){
+    if(pn == NULL)
+        return 0;
+    return pn->nbForms > 0;
+}

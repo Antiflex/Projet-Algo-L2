@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "function.h"
 
-#define MAX 10
+#define MAXATTLEN 20
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
     // les noeuds créés n'ont aucun lien de parenté
@@ -43,7 +43,7 @@ str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str 
     str* tabStr = (str*) calloc(nbStr, sizeof(str));
     int strIndex = 0;
     for(int i =0; i<nbStr; i++){
-        tabStr[i] = (str) calloc(MAX,sizeof(char));
+        tabStr[i] = (str) calloc(MAXATTLEN, sizeof(char));
         strIndex = deuxpoints(string,tabStr[i],strIndex)+1;
         tabStr[i] = realloc(tabStr[i],(strlen(tabStr[i])+1)*sizeof(char));
     }
@@ -55,7 +55,7 @@ str* getAttributesTab(str information){ //retourne un tableau d'attributs utilis
     str * attTab = (str*) calloc(nbAtt,sizeof(str));
     str* tab = splitStrColon(information);
     for(int i=0; i<nbAtt; i++){
-        attTab[i] =tab[i+1];
+        attTab[i] = tab[i+1];
         isplus(attTab[i]);
     }
     free(tab);
@@ -91,43 +91,6 @@ t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root 
     return T;
 }
 
-/* t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser les fonctions de Bastien
-    t_tree T;
-    T.nature = TypeOfWord;
-    //forme de base, fléchie, genre, nombre... de la ligne 1 du dico à récupérer avec les fonctions de bastien
-    char BaseForm1[]= ;
-    char FlexForm1[]= ;
-    char *Parameters1[]= ;
-
-    //forme de base, fléchie, genre, nombre... de la ligne 2 du dico
-    char BaseForm2[]= ;
-    char FlexForm2[]= ;
-    char *Parameters2[]= ;
-
-    //On ajoute le premier mot du dico
-    T.root= createNode(BaseForm1[0]);
-    p_node StartLetter = T.root; //la lettre du début de notre mot
-    p_node EndLetter = addWord(StartLetter, BaseForm1); //la lettre de la fin de notre mot
-    addConjForm(EndLetter, createCform(FlexForm1, Parameters1)); // on ajoute la forme fléchie
-
-    //Boucle pour ajouter le reste de notre dico à m'arbre
-    while ( ){ //temps qu'on  a pas parcouru tout le dico
-        if (BaseForm1 == BaseForm2){
-            addConjForm(EndLetter, createCform(FlexForm2, Parameters2));
-        }
-        else{
-            //trouver un noeud où ajouter la nouvelle forme de base
-            //vérifier pour les enfants du premier noeud
-        }
-
-    }
-}*/
-
-int isNodeWord(p_node pn){
-    if(pn == NULL)
-        return 1;
-    return pn->nbForms > 0;
-}
 
 p_node findWordInTree(t_tree tree, str word){ // recherche si le mot "word" est une suite de lettres présentes dans l'arbre "tree"
     // retourne le noeud de la dernière lettre si trouvé, NULL sinon
@@ -172,8 +135,9 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
     int B = 1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
     str word = (str) malloc(sizeof(char));
     word[0]='\0'; // initialisation de la str qui va contenir le mot que l'on obtient en parcourant l'arbre
-
+    printf("[finding a : %s]\n",tree.nature);
     while (B){ //tant qu'on doit parcourir l'arbre
+        printf("%u\n",current->children.head);
         int nextChildIndex = rand()%(current->children.childNb);
         // l'indice de la prochaine lettre est un nombre
         // aléatoire compris entre 0 et le nombre d'enfants de current
@@ -183,7 +147,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
         current=nextChild->nodeValue; //current prend la valeur d'un de ses enfants au hasard
 
         addStrChar(&word,current->letter); // on ajoute la lettre de current a la str qui contient le mot formé
-
+        printf("%c ",current->letter);
         if(current->children.childNb == 0) // si le noeud est une feuille alors on s'arrête là
             B = 0;
         else if(isNodeWord(current)){ // sinon si le noeud qu'on regarde est un mot alors :
@@ -204,6 +168,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de bform aléatoires selon le model
     bform* bformTab = (bform*) calloc(phrase.wordsNb,sizeof(bform));
     for(int i=0; i<phrase.wordsNb; i++){
+        printf("[word : %d]",i);
         t_word currentWord = phrase.words[i];
         str currentCategory = currentWord.category;
         if(!strcmp(currentCategory,"nom")){
@@ -223,6 +188,7 @@ bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tr
             bformTab[i].node = NULL;
         }
     }
+    printf("\n");
     return bformTab;
 }
 

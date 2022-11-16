@@ -39,7 +39,7 @@ int main() {
     int i;
     int j = 0;
     //int a=menu();
-    fichier = fopen("C:\\Users\\Alexandre\\Downloads\\dictionnaire_non_accentue\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
+    fichier = fopen("C:\\Users\\a\\CLionProjects\\Projet-Algo-L2\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
     // on crée les différents types d'arbres vides
     t_tree verbes= createEmptyTree("Verbes");
     t_tree adjectifs= createEmptyTree("Adjectifs");
@@ -84,17 +84,14 @@ int main() {
             SEEK_CURR += 1;
             printf("%s\n",non_flechie);
         }
-        /*printf("done\n");
-        printf("%u\n",findWordInTree(verbes,"avoir"));
-        printDevModel(createRandomModel1());
-         */
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
     printf("\n---------arbre fini-----------\n");
 
     printf("\n---------tests-----------\n\n");
-    printf("%s\n", randomBaseFormInTree(verbes).word);
-    //searchWordInTree(noms,"a");
+    //printf("%s\n", randomBaseFormInTree(verbes).word);
+    p_node abaisseur = isWordInTree(noms, "abaisseur");
+    printf("%u", abaisseur->children.head);
     //printf("\n");
     printf("\n--------menu--------\n\n");
     int b=1;
