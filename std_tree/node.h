@@ -56,13 +56,6 @@ typedef struct s_bform{
 }bform;
 
 
-//structure d'une forme de base (uniquement utilisée pour la recherche aléatoire
-
-typedef struct s_bform{
-    p_node node;
-    str word;
-}bform;
-
 //prototypes
 
 p_node createNode(char letter);

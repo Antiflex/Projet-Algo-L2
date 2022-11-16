@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include "stdio.h"
-#include <string.h>
+#include "model.h"
 typedef char* str;
 
 typedef struct { // structure d'une forme fléchie
@@ -50,14 +50,12 @@ typedef struct { // structure d'une forme fléchie
      *  forme2.attributes = ["IImp SG P1","IImp SG P2"]
      * }
      */
-    int nbattributs;
-}cform;
 
 //prototypes
 void copyAttributesTab(str* dest, str* source, int nbAttributes);
 cform* createCform(str *attributes, str flechie, int nbAttributs);
 void printDevCform(cform form);
-cform createCform(str *attributes, str non_flechie, int nbAttributs);
+cform* createCform(str *attributes, str non_flechie, int nbAttributs);
 str concatWordAttributes(t_word word);
 int compareWordWithCform(t_word word, cform form);
 

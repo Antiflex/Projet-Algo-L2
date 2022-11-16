@@ -19,13 +19,13 @@ cform* createCform(str *attributes, str flechie, int nbAttributs){
     copyAttributesTab(formeFlechie->attributes ,attributes,nbAttributs);
     formeFlechie->word = (str) calloc(strlen(flechie)+1,sizeof(char));
     strcpy(formeFlechie->word,flechie);
-    formeFlechie->nbattributs = nbAttributs;
+    formeFlechie->nbAttributes = nbAttributs;
     return formeFlechie;
 }
 
 void printDevCform(cform form){
-    printf("%s : %d attribut(s) :\n",form.word,form.nbattributs);
-    for(int i = 0; i< form.nbattributs; i++){
+    printf("%s : %d attribut(s) :\n",form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
         printf("%s | ",form.attributes[i]);
     }
     printf("\n");

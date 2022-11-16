@@ -5,12 +5,13 @@
 #include <locale.h>
 #include "tree.h"
 #include <time.h>
+#include "function.h"
+#include "menu.h"
 
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 50/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
-#include "function.h"
-#include "menu.h"
+#define SEEK_fin 300/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+
 
 int main1(){
     t_tree verbes = createEmptyTree("verbes");
@@ -18,7 +19,7 @@ int main1(){
     // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
     addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
     addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value.word);
+    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value->word);
 };
 
 
@@ -38,8 +39,7 @@ int main() {
     int i;
     int j = 0;
     //int a=menu();
-    fichier = fopen("dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
-
+    fichier = fopen("C:\\Users\\Alexandre\\Downloads\\dictionnaire_non_accentue\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
     // on crée les différents types d'arbres vides
     t_tree verbes= createEmptyTree("Verbes");
     t_tree adjectifs= createEmptyTree("Adjectifs");
@@ -84,11 +84,55 @@ int main() {
             SEEK_CURR += 1;
             printf("%s\n",non_flechie);
         }
-        printf("done\n");
+        /*printf("done\n");
         printf("%u\n",findWordInTree(verbes,"avoir"));
         printDevModel(createRandomModel1());
+         */
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
+    printf("\n---------arbre fini-----------\n");
+
+    printf("\n---------tests-----------\n\n");
+    printf("%s\n", randomBaseFormInTree(verbes).word);
+    //searchWordInTree(noms,"a");
+    //printf("\n");
+    printf("\n--------menu--------\n\n");
+    int b=1;
+    do {
+        int a = menu();
+        t_model model;
+        switch (a){
+            case 1:
+                model = createRandomModel1();
+                break;
+            case 2:
+                model = createRandomModel2();
+                break;
+            case 3:
+                model = createRandomModel3();
+                break;
+            case 4:
+                model = createRandomModel3();
+                break;
+            case 5:
+                model = createRandomModel3();
+                break;
+            case 6:
+                model = createRandomModel3();
+                break;
+        }
+        printf("\n");
+        printDevModel(model);
+        printf("\n");
+        do{
+            printf("Continuer tapez 1 sinon 0:");
+            scanf("%d",&b);
+        }while(b<0 || b>1);
+        switch (b) {
+            case 1:
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
+        }
+    }while (b==1);
     return 0;
 };
 

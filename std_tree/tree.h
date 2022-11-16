@@ -32,5 +32,6 @@ p_node isWordInTree(t_tree tree, str word);
 bform randomBaseFormInTree(t_tree t);
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);
 str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);
+int searchWordInTree(t_tree tree, str word);
 
 #endif //PROJET_ALGO_L2_TREE_H
