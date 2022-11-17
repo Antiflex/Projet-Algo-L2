@@ -39,7 +39,7 @@ int main() {
     int i;
     int j = 0;
     //int a=menu();
-    fichier = fopen("C:\\Users\\Alexandre\\Downloads\\dictionnaire_non_accentue\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
+    fichier = fopen("dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
     // on crée les différents types d'arbres vides
     t_tree verbes= createEmptyTree("Verbes");
     t_tree adjectifs= createEmptyTree("Adjectifs");
@@ -104,21 +104,27 @@ int main() {
         switch (a){
             case 1:
                 model = createRandomModel1();
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 2:
                 model = createRandomModel2();
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 3:
                 model = createRandomModel3();
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 4:
-                model = createRandomModel3();
+                model = createRandomModel1();
+                phraseconjugated(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 5:
-                model = createRandomModel3();
+                model = createRandomModel2();
+                phraseconjugated(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 6:
                 model = createRandomModel3();
+                phraseconjugated(model,noms,verbes,adjectifs,adverbes);
                 break;
         }
         printf("\n");
@@ -128,10 +134,6 @@ int main() {
             printf("Continuer tapez 1 sinon 0:");
             scanf("%d",&b);
         }while(b<0 || b>1);
-        switch (b) {
-            case 1:
-                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
-        }
     }while (b==1);
     return 0;
 };

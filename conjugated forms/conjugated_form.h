@@ -8,6 +8,10 @@
 #include <stdlib.h>
 #include "stdio.h"
 #include "model.h"
+#include "str.h"
+#include "tree.h"
+#include "node.h"
+#include "model.h"
 typedef char* str;
 
 typedef struct { // structure d'une forme fléchie
@@ -56,6 +60,9 @@ void copyAttributesTab(str* dest, str* source, int nbAttributes);
 cform* createCform(str *attributes, str flechie, int nbAttributs);
 void printDevCform(cform form);
 cform* createCform(str *attributes, str non_flechie, int nbAttributs);
+int* CountCategory(t_model t, str category);
+char* verifybaseform(bform base,t_model t);
+void phraseconjugated(t_model t,t_tree nom,t_tree verbes,t_tree adjectifs,t_tree adverbes);
 str concatWordAttributes(t_word word);
 int compareWordWithCform(t_word word, cform form);
 

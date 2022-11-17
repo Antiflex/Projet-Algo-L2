@@ -6,6 +6,7 @@
 #define PROJET_ALGO_L2_NODE_H
 
 #include "form_list.h"
+#include "conjugated_form.h"
 
 typedef struct s_node {
     char letter;  // la lettre du noeud
