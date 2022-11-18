@@ -236,3 +236,82 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
     }
     return phraseStr;
 }
+void printDevCform(cform form){
+    printf("%s : %d attribut(s) :\n",form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
+        printf("%s | ",form.attributes[i]);
+    }
+    printf("\n");
+}
+
+void phraseconjugated(t_model t,t_tree nom,t_tree verbes,t_tree adjectifs,t_tree adverbes){
+    cform* cformTab = (cform*) calloc(t.wordsNb,sizeof(cform));
+    bform* bformTab = (bform*) calloc(t.wordsNb,sizeof(bform));
+    for(int i=0; i<t.wordsNb; i++){
+        t_word currentWord = t.words[i];
+        str currentCategory = currentWord.category;
+        if(!strcmp(currentCategory,"nom")){
+            do{
+                bformTab[i]=randomBaseFormInTree(nom);
+            }while(!verifybaseform(bformTab[i],t));
+            cformTab[i] = ajoutecform(bformTab[i], t);
+        }
+        else if(!strcmp(currentCategory,"verbe")){
+            do{
+                bformTab[i]=randomBaseFormInTree(verbes);
+            }while(!verifybaseform(bformTab[i],t));
+            cformTab[i] = ajoutecform(bformTab[i], t);
+        }
+        else if(!strcmp(currentCategory,"adjectif")){
+            do{
+                bformTab[i]=randomBaseFormInTree(nom);
+            }while(!verifybaseform(bformTab[i],t));
+            cformTab[i] = ajoutecform(bformTab[i], t);
+        }
+        else if(!strcmp(currentCategory,"adverbe")){
+            do{
+                bformTab[i]=randomBaseFormInTree(adverbes);
+            }while(verifybaseform(bformTab[i],t)==0);
+            cformTab[i] = ajoutecform(bformTab[i], t);
+        }
+    }
+    for(int i=0; i<t.wordsNb; i++){
+        printf("%s ",cformTab[i].word);
+    }
+
+
+}
+int verifybaseform(bform base,t_model t){
+    int a=base.node->nbForms;
+    p_form_cell temp;
+    int b=0;
+    temp=base.node->forms.head;
+    for(int i=0;i<a;i++){
+        for(int j=0;j<strlen(*t.words[i].attributes);j++){
+            b=b+(!strcmp(t.words[i].attributes[j],temp->value->attributes[i]));
+        }
+        printf("%s",temp->value->word);
+        if (b== strlen(*temp->value->attributes)){
+            return 1;
+        }
+        temp=temp->next;
+    }
+    return 0;
+}
+cform ajoutecform(bform base,t_model t) {
+    int a=base.node->nbForms;
+    p_form_cell temp;
+    int b=0;
+    temp=base.node->forms.head;
+    for(int i=0;i<a;i++){
+        for(int j=0;j<strlen(*t.words[i].attributes);j++){
+            b=b+(!strcmp(t.words[i].attributes[j],temp->value->attributes[i]));
+        }
+        printf("%s",temp->value->word);
+        if (b== strlen(*temp->value->attributes)){
+            return *temp->value;
+        }
+        temp=temp->next;
+    }
+}
+

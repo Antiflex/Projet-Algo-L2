@@ -6,8 +6,9 @@
 #define PROJET_ALGO_L2_CONJUGATED_FORM_H
 
 #include <stdlib.h>
-#include "stdio.h"
+#include <stdio.h>
 #include "model.h"
+
 typedef char* str;
 
 typedef struct { // structure d'une forme fléchie
@@ -58,5 +59,7 @@ void printDevCform(cform form);
 cform* createCform(str *attributes, str non_flechie, int nbAttributs);
 str concatWordAttributes(t_word word);
 int compareWordWithCform(t_word word, cform form);
+//void phraseconjugated(t_model t,t_tree nom,t_tree verbes,t_tree adjectifs,t_tree adverbes);
+//char* verifybaseform(bform base,t_model t);
 
 #endif //PROJET_ALGO_L2_CONJUGATED_FORM_H
