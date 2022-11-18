@@ -135,9 +135,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
     int B = 1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
     str word = (str) malloc(sizeof(char));
     word[0]='\0'; // initialisation de la str qui va contenir le mot que l'on obtient en parcourant l'arbre
-    printf("[finding a : %s]\n",tree.nature);
     while (B){ //tant qu'on doit parcourir l'arbre
-        printf("%u\n",current->children.head);
         int nextChildIndex = rand()%(current->children.childNb);
         // l'indice de la prochaine lettre est un nombre
         // aléatoire compris entre 0 et le nombre d'enfants de current
@@ -147,7 +145,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
         current=nextChild->nodeValue; //current prend la valeur d'un de ses enfants au hasard
 
         addStrChar(&word,current->letter); // on ajoute la lettre de current a la str qui contient le mot formé
-        printf("%c ",current->letter);
+
         if(current->children.childNb == 0) // si le noeud est une feuille alors on s'arrête là
             B = 0;
         else if(isNodeWord(current)){ // sinon si le noeud qu'on regarde est un mot alors :
