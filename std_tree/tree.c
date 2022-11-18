@@ -168,7 +168,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de bform aléatoires selon le model
     bform* bformTab = (bform*) calloc(phrase.wordsNb,sizeof(bform));
     for(int i=0; i<phrase.wordsNb; i++){
-        printf("[word : %d]",i);
+        //printf("[word : %d]",i);
         t_word currentWord = phrase.words[i];
         str currentCategory = currentWord.category;
         if(!strcmp(currentCategory,"nom")){
@@ -188,7 +188,7 @@ bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tr
             bformTab[i].node = NULL;
         }
     }
-    printf("\n");
+    //printf(" finished\n");
     return bformTab;
 }
 
@@ -196,6 +196,7 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
     str phraseStr = malloc(sizeof(char));
     phraseStr[0] = '\0';
     bform* bformTab = generateBasePhraseTab(verbs,nouns, adjectives, adverbs, phrase);
+    //printf("phrase found\n");
     for(int i=0; i<phrase.wordsNb; i++){
         addStrSize(&phraseStr,bformTab[i].word);
         addStrSize(&phraseStr," ");

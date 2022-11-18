@@ -90,8 +90,8 @@ int main() {
 
     printf("\n---------tests-----------\n\n");
     //printf("%s\n", randomBaseFormInTree(verbes).word);
-    p_node abaisseur = isWordInTree(noms, "abaisseur");
-    printf("%u", abaisseur->children.head);
+    p_node abaisseur = isWordInTree(noms, "abattu");
+    printf("%d", abaisseur->children.childNb);
     //printf("\n");
     printf("\n--------menu--------\n\n");
     int b=1;
