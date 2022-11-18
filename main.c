@@ -10,19 +10,7 @@
 
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 300/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
-
-
-int main1(){
-    t_tree verbes = createEmptyTree("verbes");
-    p_node current = verbes.root;
-    // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
-    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value->word);
-};
-
-
+#define SEEK_fin 400/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 
 int main() {
     /**initalisation de la see pour l'aléatoire*/
@@ -121,17 +109,17 @@ int main() {
             case 4:
                 model = createRandomModel1();
                 printDevModel(model);
-                phraseconjugated( model, noms, verbes, adjectifs,adverbes);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 5:
                 model = createRandomModel2();
                 printDevModel(model);
-                phraseconjugated( model, noms, verbes, adjectifs,adverbes);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 6:
                 model = createRandomModel3();
                 printDevModel(model);
-                phraseconjugated( model, noms, verbes, adjectifs,adverbes);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
         }
         printf("\n");
