@@ -245,10 +245,18 @@ void printDevCform(cform form){
 }
 
 cform* verifybaseform(bform forme,t_word mot){
-    str attributmot= combineStrSpaces(mot.attributes, strlen(*mot.attributes));
+    int nbStr = 2;
+    str category = mot.category;
+    if(!strcmp(category,"verbe"))
+        nbStr = 3;
+    str attributmot= combineStrSpaces(mot.attributes,nbStr );
+    printf(" : %s : ",attributmot);
     p_form_cell temp=forme.node->forms.head;
+    printf("nbform:%d-",forme.node->nbForms);
     for(int i=0;i<forme.node->nbForms;i++){
-        if(!strcmp(temp->value->word,attributmot)){
+        printf("[att i : %u = ",temp->value->attributes[i]);
+        printf("%s]",temp->value->attributes[i]);
+        if(!strcmp(temp->value->attributes[i],attributmot)){
             return temp->value;
         }
         temp=temp->next;
@@ -257,23 +265,32 @@ cform* verifybaseform(bform forme,t_word mot){
 }
 str combineStrSpaces(str* strTab, int nbStr){ // combine les str contenues dans un tableau en une seule str avec un espace comme séparateur
     str Newstr = (str) malloc(sizeof(char));
+    Newstr[0]= '\0';
+    printf("att :");
     for(int i = 0; i<nbStr; i++){
+        printf(" %s",strTab[i]);
         addStrSize(&Newstr,strTab[i]);
         if (i != nbStr-1)
             addStrChar(&Newstr,' ');
     }
     return  Newstr;
 }
+
 cform* findCform(t_tree t,t_word mot){
     int cpt=0;
+    bform base;
     do{
-        bform base= randomBaseFormInTree(t);
+        base= randomBaseFormInTree(t);
+        printf("%s",base.word);
         cform* c=verifybaseform(base,mot);
+        //printf("cform found");
+        printf("! %d\n",cpt);
         if(c!=NULL){
+            printf("cform found\n");
             return c;
         }
         cpt++;
-    }while(cpt!=100);
+    }while(cpt!=400);
     return NULL;
 
 }
@@ -284,7 +301,7 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
         }else if(!strcmp(model.words[i].category,"verbe")){
             printf("%s ",findCform(verbe,model.words[i])->word);
         }else if(!strcmp(model.words[i].category,"adjectif")){
-            printf("%s ",findCform(adj,model.words[i])->word);
+            printf("adj : %s ",findCform(adj,model.words[i])->word);
         }else if(!strcmp(model.words[i].category,"adverbe")){
             printf("%s ",findCform(adv,model.words[i])->word);
         }else{
