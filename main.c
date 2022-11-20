@@ -12,17 +12,6 @@
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
 #define SEEK_fin 5000/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 
-int main1(){
-    t_tree verbes = createEmptyTree("verbes");
-    p_node current = verbes.root;
-    // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
-    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
-    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value->word);
-};
-
-
-
 int main() {
     /**initalisation de la see pour l'aléatoire*/
     time_t t;
@@ -80,17 +69,9 @@ int main() {
                     break;
             }
             SEEK_CURR += 1;
-            printf("%s\n",non_flechie);
         }
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
-    printf("\n---------arbre fini-----------\n");
-
-    printf("\n---------tests-----------\n\n");
-
-    searchCformInTrees(noms,verbes,adjectifs,adverbes,"abjectement");
-
-    printf("\n--------menu--------\n\n");
     int b=1;
     do {
         int a = menu(verbes,noms,adjectifs,adverbes);
@@ -101,17 +82,17 @@ int main() {
             case 1:
                 model = createRandomModel1();
                 printDevModel(model);
-                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
+                printf("\n%s\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 2:
                 model = createRandomModel2();
                 printDevModel(model);
-                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
+                printf("\n%s\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 3:
                 model = createRandomModel3();
                 printDevModel(model);
-                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
+                printf("\n%s\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 4:
                 model = createRandomModel1();
@@ -129,7 +110,6 @@ int main() {
                 PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
         }
-        printf("\n");
         printf("\n");
         do{
             printf("Continuer tapez 1 sinon 0:");

@@ -30,6 +30,7 @@ p_node isWordInTree(t_tree tree, str word);
 bform randomBaseFormInTree(t_tree t);
 str combineStrSpaces(str* strTab, int nbStr);
 cform* verifybaseform(bform forme,t_word mot);
+void PrintdevCform(t_tree tree,str word);
 void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv);
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);
 str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);

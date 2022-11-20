@@ -65,6 +65,7 @@ t_model createModel(str* words, int* accords, int wordsNb){ // crée une modèle
 }
 
 void printDevModel(t_model model){ // fonction pour visualiser le modèle d'une phrase
+    printf("\n");
     for(int i=0; i<model.wordsNb; i++){
         printf("[%s : %d : ",model.words[i].category, model.accords[i]);
         int attNb = 2;
@@ -97,7 +98,7 @@ int model1accords[4] = {-1, 0, 0, -1};
 str model2str[6] = {"nom","qui","verbe","verbe","nom","adjectif"};
 int model2accords[6] = {-1, 0, 1, 1, -1, 4};
 
-//Modèle n°3 :
+//Modèle n°3 : nom - verbe - avec - nom - adjectif
 str model3str[5] ={"nom","verbe","avec","nom","adjectif"};
 int model3accords[5]={-1, 0,0,0,3};
 

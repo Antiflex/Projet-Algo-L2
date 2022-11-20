@@ -99,10 +99,23 @@ p_node isWordInTree(t_tree tree, str word){//recherche si le mot "word" est une 
 int searchWordInTree(t_tree tree, str word){//retourne 1 si le mot existe
     p_node pn = isWordInTree(tree, word);
     if(pn!=NULL)
-        printf("le mot \"%s\" est present dans l'abre des %s\n",word,tree.nature);
+        printf("le mot \"%s\" est present dans l'arbre des %s\n",word,tree.nature);
     else
         printf("le mot \"%s\" est absent de l'arbre des %s\n",word,tree.nature);
     return(pn != NULL);
+}
+void PrintdevCform(t_tree tree,str word){
+    p_node temp= isWordInTree(tree,word);
+    if(temp!=NULL){
+        printf("Formes flechies de %s : ",word );
+        p_form_cell temp2=temp->forms.head;
+        int cpt= temp->nbForms;
+        for(int i=0; i<cpt; i++){
+            printf("%s ",temp2->value->word);
+            temp2=temp2->next;
+        }
+        printf("\n");
+    }
 }
 
 bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire présente dans l'arbre "t"
@@ -227,6 +240,7 @@ cform* findCform(t_tree t,t_word mot){
 }
 
 void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
+    printf("\n");
     for(int i=0;i<model.wordsNb;i++){
         if(!strcmp(model.words[i].category,"nom")){
             // on affiche un déterminant avant le nom
@@ -264,6 +278,7 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
             printf("%s ",model.words[i].category);
         }
     }
+    printf("\n");
 }
 
 cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot){
@@ -289,6 +304,7 @@ void searchCformInTrees( t_tree noms,t_tree verbes,t_tree adjectifs,t_tree adver
     int found = 0;
     t_tree ordre[4]= {noms,verbes,adjectifs,adverbes};
     str ordreStr[4]= {"nom","verbe","adjectif","adverbe"};
+    printf("\n");
     for(int i=0; i<4;i++) {
 
 
@@ -303,7 +319,7 @@ void searchCformInTrees( t_tree noms,t_tree verbes,t_tree adjectifs,t_tree adver
 
         if(res != NULL){
             found = 1;
-            printf("\nle mot \"%s\" existe en tant que %s :\n",word,ordreStr[i]);
+            printf("le mot \"%s\" existe en tant que %s :\n",word,ordreStr[i]);
             printf("c'est une forme flechie de %s:\n",*mot);
             printPrettyCform(*res);
             printf("\n");
