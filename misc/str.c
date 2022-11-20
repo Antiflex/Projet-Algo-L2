@@ -17,7 +17,7 @@ void addStrSize(str* dest, str addend){ //ajoute la string "addend" à la fin de
     str Newstr = (str) calloc(strlen(*dest) + strlen(addend) + 1,sizeof (char)); // +1 pour le '\0' car strlen() ne le compte pas
     strcat(Newstr,*dest);
     strcat(Newstr,addend);
-    free(*dest);
+    //free(*dest);
     *dest = Newstr;
 }
 

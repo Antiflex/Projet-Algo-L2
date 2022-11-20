@@ -21,10 +21,16 @@ t_word createWord(str category){ // crée un mot : si c'est un nom alors le genr
         result.attributes[1] = Nombre[nombre];
     }
     else if(strcmp(category,"verbe")==0){
-        result.attributes = (str*) calloc(3,sizeof(str));
         int temps = rand()%TEMPSNB;
-        result.attributes[0] = Temps[temps];
-        result.attributes[2] = "P3";
+        if(temps==0){//cas infinitif
+            result.attributes = (str*) malloc(sizeof(str));
+            result.attributes[0] = Temps[temps];
+        }
+        else {
+            result.attributes = (str *) calloc(3, sizeof(str));
+            result.attributes[0] = Temps[temps];
+            result.attributes[2] = "P3";
+        }
     }
     else{
         result.attributes = (str*) calloc(2,sizeof(str));
@@ -37,9 +43,11 @@ void conjugate(t_word* word, t_word* accord){ // modifie le mot "word" pour l'ac
         return;
     else if(!strcmp(word->category, "adjectif")) //un adjectif s'accorde avec un nom ou un mot prédéterminé donc il aura les mêmes attributs
         word->attributes = accord->attributes;
-    else if(!strcmp(word->category, "verbe")) {// un verbe s'accorde en nombre avec le sujet qui est un nom ou un mot prédéterminé
-        word->attributes[1] = accord->attributes[1];
-        word->attributes[3] = "P3";
+    else if(!strcmp(word->category, "verbe")) {// un verbe s'accorde en nombre avec le sujet qui est un nom ou un mot prédéterminé sauf si c'est à l'infinitif
+        if(strcmp(word->attributes[0],"Inf")) {
+            word->attributes[1] = accord->attributes[1];
+            word->attributes[3] = "P3";
+        }
     }
     else
         word->attributes = accord->attributes;
@@ -60,8 +68,12 @@ void printDevModel(t_model model){ // fonction pour visualiser le modèle d'une 
     for(int i=0; i<model.wordsNb; i++){
         printf("[%s : %d : ",model.words[i].category, model.accords[i]);
         int attNb = 2;
-        if(!strcmp(model.words[i].category,"verbe"))
-            attNb = 3;
+        if(!strcmp(model.words[i].category,"verbe")){
+            if(!strcmp(model.words[i].attributes[0],"Inf"))
+                attNb = 1;
+            else
+                attNb = 3;
+        }
         else if(!strcmp(model.words[i].category,"adverbe"))
             attNb = 0;
         for(int j=0; j<attNb; j++)
@@ -86,8 +98,8 @@ str model2str[6] = {"nom","qui","verbe","verbe","nom","adjectif"};
 int model2accords[6] = {-1, 0, 1, 1, -1, 4};
 
 //Modèle n°3 :
-str model3str[6] ={"verbe","-vous","verbe","nom","adjectif","?"};
-int model3accords[6]={1, 0,-1,-1,3,-1};
+str model3str[5] ={"nom","verbe","avec","nom","adjectif"};
+int model3accords[5]={-1, 0,0,0,3};
 
 t_model createConjugatedModel(str* words, int* accords, int wordsNb){
     t_model model = createModel(words,accords,wordsNb);
@@ -104,5 +116,5 @@ t_model createRandomModel2(){
 }
 
 t_model createRandomModel3(){
-    return createConjugatedModel(model3str,model3accords,6);
+    return createConjugatedModel(model3str,model3accords,5);
 }

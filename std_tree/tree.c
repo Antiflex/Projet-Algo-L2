@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "function.h"
 
-#define MAX 10
+#define MAX 20
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
     // les noeuds créés n'ont aucun lien de parenté
@@ -77,6 +77,7 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     }
     cform* lastNodeForm = createCform(attributes,flechie,nbAttributes);
     //print :
+    printf("\n%u\n[1]",currentLetterNode);
     printDevCform(*lastNodeForm);
     p_form_cell newFormCell = createCell(lastNodeForm);
     addHeadList(&currentLetterNode->forms,newFormCell);
@@ -91,37 +92,6 @@ t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root 
     return T;
 }
 
-/* t_tree createTree(char *TypeOfWord){ // ajouter d'autre argument pour utiliser les fonctions de Bastien
-    t_tree T;
-    T.nature = TypeOfWord;
-    //forme de base, fléchie, genre, nombre... de la ligne 1 du dico à récupérer avec les fonctions de bastien
-    char BaseForm1[]= ;
-    char FlexForm1[]= ;
-    char *Parameters1[]= ;
-
-    //forme de base, fléchie, genre, nombre... de la ligne 2 du dico
-    char BaseForm2[]= ;
-    char FlexForm2[]= ;
-    char *Parameters2[]= ;
-
-    //On ajoute le premier mot du dico
-    T.root= createNode(BaseForm1[0]);
-    p_node StartLetter = T.root; //la lettre du début de notre mot
-    p_node EndLetter = addWord(StartLetter, BaseForm1); //la lettre de la fin de notre mot
-    addConjForm(EndLetter, createCform(FlexForm1, Parameters1)); // on ajoute la forme fléchie
-
-    //Boucle pour ajouter le reste de notre dico à m'arbre
-    while ( ){ //temps qu'on  a pas parcouru tout le dico
-        if (BaseForm1 == BaseForm2){
-            addConjForm(EndLetter, createCform(FlexForm2, Parameters2));
-        }
-        else{
-            //trouver un noeud où ajouter la nouvelle forme de base
-            //vérifier pour les enfants du premier noeud
-        }
-
-    }
-}*/
 
 int isNodeWord(p_node pn){
     if(pn == NULL)
@@ -235,4 +205,73 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
         addStrSize(&phraseStr," ");
     }
     return phraseStr;
+}
+void printDevCform(cform form){
+    printf("%s : %d attribut(s) :\n",form.word,form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
+        printf("%s | ",form.attributes[i],form.attributes[i]);
+    }
+    printf("\n");
+}
+
+cform* verifybaseform(bform forme,t_word mot){
+    int nbStr = 2;
+    str category = mot.category;
+    if(!strcmp(category,"verbe")){
+        if(!strcmp(mot.attributes[0],"Inf"))
+            nbStr = 1;
+        else
+            nbStr = 3;
+    }
+    str attributmot= combineStrSpaces(mot.attributes,nbStr );
+    p_form_cell temp=forme.node->forms.head;
+    for(int i=0;i<forme.node->nbForms;i++){
+        for(int j=0; j<temp->value->nbAttributes; j++) {
+            if (!strcmp(temp->value->attributes[j], attributmot)) {
+                return temp->value;
+            }
+        }
+        temp=temp->next;
+    }
+    return NULL;
+}
+str combineStrSpaces(str* strTab, int nbStr){ // combine les str contenues dans un tableau en une seule str avec un espace comme séparateur
+    str Newstr = (str) malloc(sizeof(char));
+    Newstr[0]= '\0';
+    for(int i = 0; i<nbStr; i++){
+        addStrSize(&Newstr,strTab[i]);
+        if (i != nbStr-1)
+            addStrChar(&Newstr,' ');
+    }
+    return  Newstr;
+}
+
+cform* findCform(t_tree t,t_word mot){
+    int cpt=0;
+    bform base;
+    do{
+        base= randomBaseFormInTree(t);
+        cform* c=verifybaseform(base,mot);
+        if(c!=NULL){
+            return c;
+        }
+        cpt++;
+    }while(cpt!=400);
+    return NULL;
+
+}
+void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
+    for(int i=0;i<model.wordsNb;i++){
+        if(!strcmp(model.words[i].category,"nom")){
+            printf("%s ",findCform(nom,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"verbe")){
+            printf("%s ",findCform(verbe,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"adjectif")){
+            printf("%s ",findCform(adj,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"adverbe")){
+            printf("%s ",findCform(adv,model.words[i])->word);
+        }else{
+            printf("%s ",model.words[i].category);
+        }
+    }
 }
