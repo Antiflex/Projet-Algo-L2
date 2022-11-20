@@ -12,7 +12,7 @@ t_word createWord(str category){ // crée un mot : si c'est un nom alors le genr
     str Genre[] = {"Mas", "Fem"};
     str Nombre[] = {"SG", "PL"};
     //verbe
-    str Temps[TEMPSNB] = {"Inf","IPre","IImp","SPre"};
+    str Temps[TEMPSNB] = {"Inf","IPre","IImp","SPre","IFut","CPre","SImp",};
     if(strcmp(category,"nom")==0){
         result.attributes = (str*) calloc(2,sizeof(str));
         int genre = rand()%2;

@@ -6,7 +6,7 @@
 #define PROJET_ALGO_L2_MODEL_H
 
 #include "str.h"
-#define TEMPSNB 4
+#define TEMPSNB 7
 
 typedef struct s_word{ //structure d'un mot pour un modèle de phrase - similaire à celle des formes conjuguées, mais on stocke la catégorie du mot plutôt que le mot lui-même
     str category; //catégorie du mot (nom - verbe - ...) si c'est un mot prédéterminé alors la catégorie sera le mot lui-même, par example dans le modèle 2 : "qui"
