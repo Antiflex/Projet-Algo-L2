@@ -83,6 +83,12 @@ int main() {
     //printf("%s\n", randomBaseFormInTree(verbes).word);
     //searchWordInTree(noms,"a");
     //printf("\n");
+    /*
+    p_node pNode = findWordInTree(verbes, "abaisser");
+    printf("pnode : %u\n", pNode);
+    cform* forme1 = pNode->forms.head->value;
+    printDevCform(*forme1);
+     */
     printf("\n--------menu--------\n\n");
     int b=1;
     do {
