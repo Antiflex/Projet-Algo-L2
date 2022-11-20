@@ -11,7 +11,7 @@ void addHeadList(form_list* list, p_form_cell pc){ //chaine un form_cell en tete
 }
 
 
-cform* searchCformInList(form_list list, int nbforms, str word){ //retoune si le mot "word" est une forme fléchie dans la liste "list"
+cform* searchCformInList(form_list list, int nbforms, str word){ //retoune la cform cherchée si le mot "word" est une forme fléchie dans la liste "list"
     if(nbforms >0){
         p_form_cell temp = list.head;
         for (int i = 0; i<nbforms;i++){

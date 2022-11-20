@@ -283,10 +283,9 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
 
 cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot){
     p_node pn = findNodeCform(tree.root,word,parcours,mot);
-
     cform* res = NULL;
-    if(pn != NULL) { //forme fléchie trouvée :
-        p_node temp = tree.root;
+    if(pn != NULL) { //forme fléchie trouvée dans l'arbre :
+        p_node temp = tree.root; // on parcourt à nouveau le chemin pris pour arriver au node
         for (int i = 0; i < parcours->len; i++) {
             p_child child = temp->children.head;
             for (int j = 0; j < parcours->tab[i]; j++) {
@@ -295,7 +294,6 @@ cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot){
             temp = child->nodeValue;
         }
         res = searchCformInList(temp->forms,temp->nbForms,word);
-        //affichage des résultats :
     }
     return res;
 }
