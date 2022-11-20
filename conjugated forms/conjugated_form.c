@@ -22,3 +22,18 @@ cform* createCform(str *attributes, str flechie, int nbAttributs){
     return formeFlechie;
 }
 
+void printDevCform(cform form){
+    printf("%s : %d attribut(s) :\n",form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
+        printf("%s | ",form.attributes[i],form.attributes[i]);
+    }
+    printf("\n");
+}
+
+void printPrettyCform(cform form){
+    printf("la forme flechie \"%s\" a %d homonyme(s) :\n",form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
+        printf("homonyme no %d : %s\n",i,form.attributes[i]);
+    }
+    printf("\n");
+}

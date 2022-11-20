@@ -56,6 +56,7 @@ typedef struct { // structure d'une forme fléchie
 void copyAttributesTab(str* dest, str* source, int nbAttributes);
 cform* createCform(str *attributes, str flechie, int nbAttributs);
 void printDevCform(cform form);
+void printPrettyCform(cform form);
 cform* createCform(str *attributes, str non_flechie, int nbAttributs);
 str concatWordAttributes(t_word word);
 int compareWordWithCform(t_word word, cform form);

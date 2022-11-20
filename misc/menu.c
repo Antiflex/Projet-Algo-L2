@@ -3,9 +3,7 @@
 //
 
 #include "menu.h"
-#include "str.h"
-#include "tree.h"
-#include "function.h"
+
 int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu permettant l'affichage des choix à faire */
     int a=0;
     char mot[1000]="";

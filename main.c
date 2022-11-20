@@ -10,7 +10,18 @@
 
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 400/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+#define SEEK_fin 5000/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+
+int main1(){
+    t_tree verbes = createEmptyTree("verbes");
+    p_node current = verbes.root;
+    // abaisse	abaisser	Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    addWordToTree(verbes,"avoue","avouer","Ver:IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2");
+    printf("\n%s", verbes.root->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->children.head->nodeValue->forms.head->value->word);
+};
+
+
 
 int main() {
     /**initalisation de la see pour l'aléatoire*/
@@ -71,24 +82,14 @@ int main() {
             SEEK_CURR += 1;
             printf("%s\n",non_flechie);
         }
-        /*printf("done\n");
-        printf("%u\n",findWordInTree(verbes,"avoir"));
-        printDevModel(createRandomModel1());
-         */
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
     printf("\n---------arbre fini-----------\n");
 
     printf("\n---------tests-----------\n\n");
-    //printf("%s\n", randomBaseFormInTree(verbes).word);
-    //searchWordInTree(noms,"a");
-    //printf("\n");
-    /*
-    p_node pNode = findWordInTree(verbes, "abaisser");
-    printf("pnode : %u\n", pNode);
-    cform* forme1 = pNode->forms.head->value;
-    printDevCform(*forme1);
-     */
+
+    searchCformInTrees(noms,verbes,adjectifs,adverbes,"abjectement");
+
     printf("\n--------menu--------\n\n");
     int b=1;
     do {
