@@ -178,13 +178,7 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
     }
     return phraseStr;
 }
-void printDevCform(cform form){
-    printf("%s : %d attribut(s) :\n",form.word,form.nbAttributes);
-    for(int i = 0; i< form.nbAttributes; i++){
-        printf("%s | ",form.attributes[i],form.attributes[i]);
-    }
-    printf("\n");
-}
+
 
 cform* verifybaseform(bform forme,t_word mot){
     int nbStr = 2;
@@ -272,6 +266,52 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
     }
 }
 
-cform findCformInTree(t_tree tree, str word){
-    return;
+cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot){
+    p_node pn = findNodeCform(tree.root,word,parcours,mot);
+
+    cform* res = NULL;
+    if(pn != NULL) { //forme fléchie trouvée :
+        p_node temp = tree.root;
+        for (int i = 0; i < parcours->len; i++) {
+            p_child child = temp->children.head;
+            for (int j = 0; j < parcours->tab[i]; j++) {
+                child = child->next;
+            }
+            temp = child->nodeValue;
+        }
+        res = searchCformInList(temp->forms,temp->nbForms,word);
+        //affichage des résultats :
+    }
+    return res;
+}
+
+void searchCformInTrees( t_tree noms,t_tree verbes,t_tree adjectifs,t_tree adverbes, str word){
+    int found = 0;
+    t_tree ordre[4]= {noms,verbes,adjectifs,adverbes};
+    str ordreStr[4]= {"nom","verbe","adjectif","adverbe"};
+    for(int i=0; i<4;i++) {
+
+
+        str* mot = malloc(sizeof(str));
+        *mot = calloc(1,sizeof(char));
+        (*mot)[0] = '\0';
+
+        p_tab parcours = malloc(sizeof(t_tab));
+        parcours->len = 0;
+
+        cform* res = findCformInTree(ordre[i], word, parcours, mot);
+
+        if(res != NULL){
+            found = 1;
+            printf("\nle mot \"%s\" existe en tant que %s :\n",word,ordreStr[i]);
+            printf("c'est une forme flechie de %s:\n",*mot);
+            printPrettyCform(*res);
+            printf("\n");
+        }
+
+        free(mot);
+        free(parcours);
+    }
+    if(found==0)
+        printf("\nle mot \"%s\" n'a pas ete trouve\n",word);
 }

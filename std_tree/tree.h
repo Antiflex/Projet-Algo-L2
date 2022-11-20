@@ -36,5 +36,7 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv);
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);
 str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase);
 int searchWordInTree(t_tree tree, str word);
+cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot);
+void searchCformInTrees( t_tree nom,t_tree verbe,t_tree adj,t_tree adv, str word);
 
 #endif //PROJET_ALGO_L2_TREE_H

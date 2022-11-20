@@ -84,7 +84,7 @@ void addIntToStart(t_tab* tab, int val){ //ajoute "val" au début du tableau tab
     (*tab).tab = newtab;
 }
 
-p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes){ //recherche l'existence d'une forme fléchie "word" dans un p_node et ses enfants
+p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes){ //recherche l'existence d'une forme fléchie "word" dans les enfants d'un p_node
     //parcours est un pointeur vers le tableau qui représentera les parcours des enfants
     //wordRes est un pointeur vers la forme de base qui contient la forme fléchie qu'on recherche
     p_node res = NULL;
@@ -104,7 +104,8 @@ p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes){ //rech
                     if(findNodeCform(child->nodeValue,word,parcours,wordRes) != NULL) { // si parmi les enfants on a resultat non NULL alors ce sera notre resultat
                         res = child->nodeValue; // on doit aussi ajouter le numéro de l'enfant au tableau du parcours et la lettre au mot resultant
                         addIntToStart(parcours,i);
-                        printf("%d : ",i);
+                        addStrCharStart(wordRes,child->nodeValue->letter);
+                        //printf("%d : ",i);
                     }
                     child = child->next;
                 }
@@ -113,7 +114,5 @@ p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes){ //rech
                 res = NULL; // si le p_node n'a pas d'enfants alors on retourne NULL puisqu'on a rien trouvé
         }
     }
-    if(res!=NULL)
-        printf("%u:%c\n",res,pn->letter);
     return res;
 }

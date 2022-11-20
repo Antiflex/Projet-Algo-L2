@@ -88,25 +88,7 @@ int main() {
 
     printf("\n---------tests-----------\n\n");
 
-    str* mot = malloc(sizeof(str));
-    *mot = calloc(2,sizeof(char));
-    (*mot)[0] = 'a';
-    (*mot)[1] = '\0';
-
-    addStrCharStart(mot,'o');
-    printf("%s\n",*mot);
-
-    p_tab parcours = malloc(sizeof(t_tab));
-    parcours->len = 0;
-
-    p_node pn = findNodeCform(noms.root,"adoptifs",parcours,NULL);
-
-    for (int i=0; i<parcours->len; i++)
-        printf("%d ",parcours->tab[i]);
-
-    printf("\n%u : \n", pn);
-    if(pn!=NULL)
-        printDevCform(*pn->forms.head->value);
+    searchCformInTrees(noms,verbes,adjectifs,adverbes,"abjectement");
 
     printf("\n--------menu--------\n\n");
     int b=1;

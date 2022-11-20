@@ -16,7 +16,6 @@ cform* searchCformInList(form_list list, int nbforms, str word){ //retoune si le
         p_form_cell temp = list.head;
         for (int i = 0; i<nbforms;i++){
             if(!strcmp(temp->value->word,word)) {
-                printf("! %s\n",temp->value->word,word);
                 return temp->value;
             }
             temp = temp->next;
