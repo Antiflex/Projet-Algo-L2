@@ -20,8 +20,6 @@ typedef struct s_tree // structure d'un arbre
 
 //prototypes
 
-p_node* createWordNodeTab(str word);
-p_node addWord(p_node current, str word);
 t_tree createEmptyTree(char class_gram[]);
 str* splitStrColon(str string);
 str* getAttributesTab(str information);
@@ -38,5 +36,6 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
 int searchWordInTree(t_tree tree, str word);
 cform* findCformInTree(t_tree tree, str word, t_tab* parcours, str* mot);
 void searchCformInTrees( t_tree nom,t_tree verbe,t_tree adj,t_tree adv, str word);
+cform* findCform(t_tree t,t_word mot);
 
 #endif //PROJET_ALGO_L2_TREE_H

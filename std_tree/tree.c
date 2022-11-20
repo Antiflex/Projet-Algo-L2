@@ -224,8 +224,8 @@ cform* findCform(t_tree t,t_word mot){
         cpt++;
     }while(cpt!=400);
     return NULL;
-
 }
+
 void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
     for(int i=0;i<model.wordsNb;i++){
         if(!strcmp(model.words[i].category,"nom")){
