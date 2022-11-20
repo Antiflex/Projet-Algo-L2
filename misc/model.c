@@ -22,7 +22,6 @@ t_word createWord(str category){ // crée un mot : si c'est un nom alors le genr
     }
     else if(strcmp(category,"verbe")==0){
         int temps = rand()%TEMPSNB;
-        temps = 0;
         if(temps==0){//cas infinitif
             result.attributes = (str*) malloc(sizeof(str));
             result.attributes[0] = Temps[temps];
