@@ -10,7 +10,7 @@
 
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 5000/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
+#define SEEK_fin 287976/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 
 int main() {
     /**initalisation de la see pour l'aléatoire*/
@@ -47,28 +47,29 @@ int main() {
     {
         while (SEEK_CURR <= SEEK_fin) {/**On se déplace dans le fichier jusqu'à la valeur donnée*/
             fscanf(fichier, "%s   %s   %s", flechie, non_flechie,information); /**On récupère les informations du fichier*/
-             /**On compte le nombre de deux points dans information*/
+            /**On compte le nombre de deux points dans information*/
             j = 0;
-            deuxpoints(information,classe_gram,j);
+            deuxpoints(information, classe_gram, j);
             i = choixclasse_gram(classe_gram);
             Emptystr(classe_gram);
-            switch (i) {/**En fonction de l'attribut information on change de cas*/
-                case 0:  //Cas n'étant pas un Nom,Ver,Adj,Adv
-                    break;
-                case 1://Cas étant verbe
-                    addWordToTree(verbes,flechie,non_flechie,information);
-                    break;
-                case 2://Cas étant adjectif
-                    addWordToTree(adjectifs,flechie,non_flechie,information);
-                    break;
-                case 3://Cas étant adverbe
-                    addWordToTree(adverbes,flechie,non_flechie,information);
-                    break;
-                case 4://Cas étant noms
-                    addWordToTree(noms,flechie,non_flechie,information);
-                    break;
+            if (i != 0) {
+                switch (i) {/**En fonction de l'attribut information on change de cas*/
+                    case 1://Cas étant verbe
+                        addWordToTree(verbes, flechie, non_flechie, information);
+                        break;
+                    case 2://Cas étant adjectif
+                        addWordToTree(adjectifs, flechie, non_flechie, information);
+                        break;
+                    case 3://Cas étant adverbe
+                        addWordToTree(adverbes, flechie, non_flechie, information);
+                        break;
+                    case 4://Cas étant noms
+                        addWordToTree(noms, flechie, non_flechie, information);
+                        break;
+                }
             }
-            SEEK_CURR += 1;
+            i=1;
+            SEEK_CURR++;
         }
         fclose(fichier);/**Ici on ferme le fichier après utilisation*/
     }
@@ -114,6 +115,8 @@ int main() {
         do{
             printf("Continuer tapez 1 sinon 0:");
             scanf("%d",&b);
+            scanf("%*c");
+            printf("\n");
         }while(b<0 || b>1);
 
     }while (b==1);

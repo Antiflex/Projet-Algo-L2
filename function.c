@@ -16,6 +16,8 @@ int isdeuxpoints(char* v1){/**On compte le nombre de deux points dans v1 puis on
     return j;
 }
 int deuxpoints(char* v1,char* v2, int i){/**On implémente les caractères contenus dans v1 à partir de l'indice i dans v2 jusqu'à rencontrer deux points ou \0*/
+    if(isdeuxpoints(v1)==0)// on verifie s'il y a bien des ":"
+        return 0;
     int j=i;
     int k=0;
     while((v1[j]!='\0') && (v1[j]!=':')){
@@ -45,7 +47,8 @@ int choixclasse_gram(char* v1){//On retourne un nombre en fonction de ce qui est
     }else if (!strcmp(v1,"Nom")) {
         return 4;
     }
-    return 0;
+    else
+        return 0;
 }
 void Emptystr(char* v1){/**On vide v1*/
     int i = strlen(v1);

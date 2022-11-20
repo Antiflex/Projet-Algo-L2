@@ -67,7 +67,7 @@ t_model createModel(str* words, int* accords, int wordsNb){ // crée une modèle
 void printDevModel(t_model model){ // fonction pour visualiser le modèle d'une phrase
     printf("\n");
     for(int i=0; i<model.wordsNb; i++){
-        printf("[%s : %d : ",model.words[i].category, model.accords[i]);
+        printf("mot %d : %s",i+1,model.words[i].category);
         int attNb = 2;
         if(!strcmp(model.words[i].category,"verbe")){
             if(!strcmp(model.words[i].attributes[0],"Inf"))
@@ -78,8 +78,8 @@ void printDevModel(t_model model){ // fonction pour visualiser le modèle d'une 
         else if(!strcmp(model.words[i].category,"adverbe"))
             attNb = 0;
         for(int j=0; j<attNb; j++)
-            printf(" %s :", model.words[i].attributes[j]);
-        printf("]");
+            printf(" %s", model.words[i].attributes[j]);
+        printf(" || ");
     }
     printf("\n");
 }

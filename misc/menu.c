@@ -11,12 +11,16 @@ int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu 
     do{
         printf("1| Formes non flechies\n2| Formes flechies\n3| Recherche de mot\nSaisissez un nombre entre 1 et 3:");
         scanf("%d",&a);
+        scanf("%*c");
+        printf("\n");
     }while(a<1 || a>3);
     int b=0;
     if(a==1){
         do{
             printf("1| Modele numero 1 (nom  adjectif  verbe  nom)\n2| Modele numero 2 (nom  qui  verbe  verbe  nom  adjectif)\n3| Modele numero 3 (nom  verbe  avec  nom  adjectif)\nSaisissez un nombre entre 1 et 3:");
             scanf("%d",&b);
+            scanf("%*c");
+            printf("\n");
         }while(b<1 || b>3);
         if(b==1){
             return 1;/**Formes non fléchies et modèle numéro 1 */
@@ -30,6 +34,8 @@ int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu 
             do {
                 printf("1| Modele numero 1 (nom  adjectif  verbe  nom)\n2| Modele numero 2 (nom  qui  verbe  verbe  nom  adjectif)\n3| Modele numero 3 (nom  verbe  avec  nom  adjectif)\nSaisissez un nombre entre 1 et 3:");
                 scanf("%d", &b);
+                scanf("%*c");
+                printf("\n");
             } while (b < 1 || b > 3);
             if (b == 1) {
                 return 4;/**Formes fléchies et modèle numéro 1 */
@@ -43,12 +49,16 @@ int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu 
             do{
                 printf("1| Formes non flechies\n2| Formes flechies\nSaisissez un nombre entre 1 et 2:");
                 scanf("%d", &c);
+                scanf("%*c");
+                printf("\n");
             }while(c<1 || c>2);
             switch(c) {
                 case 1:
                     do {
                         printf("Saisir le mot sous sa forme non flechie a rechercher:");
                         scanf("%s", mot);
+                        scanf("%*c");
+                        printf("\n");
                     } while (strlen(mot) == 0);
                     searchWordInTree(nouns, mot);
                     PrintdevCform(nouns,mot);
@@ -64,6 +74,8 @@ int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu 
                     do {
                         printf("Saisir le mot sous sa forme flechie a rechercher:");
                         scanf("%s", mot);
+                        scanf("%*c");
+                        printf("\n");
                     } while (strlen(mot) == 0);
                     searchCformInTrees(nouns,verbs,adjectives,adverbs,mot);
                     break;
@@ -71,5 +83,4 @@ int menu(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs){/**Menu 
             return 0;
         }
     }
-
 }
