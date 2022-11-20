@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "function.h"
 
-#define MAXATTLEN 20
+#define MAX 10
 
 p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
     // les noeuds créés n'ont aucun lien de parenté
@@ -43,7 +43,7 @@ str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str 
     str* tabStr = (str*) calloc(nbStr, sizeof(str));
     int strIndex = 0;
     for(int i =0; i<nbStr; i++){
-        tabStr[i] = (str) calloc(MAXATTLEN, sizeof(char));
+        tabStr[i] = (str) calloc(MAX,sizeof(char));
         strIndex = deuxpoints(string,tabStr[i],strIndex)+1;
         tabStr[i] = realloc(tabStr[i],(strlen(tabStr[i])+1)*sizeof(char));
     }
@@ -77,6 +77,7 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     }
     cform* lastNodeForm = createCform(attributes,flechie,nbAttributes);
     //print :
+    printf("\n%u\n[1]",currentLetterNode);
     printDevCform(*lastNodeForm);
     p_form_cell newFormCell = createCell(lastNodeForm);
     addHeadList(&currentLetterNode->forms,newFormCell);
@@ -91,6 +92,12 @@ t_tree createEmptyTree(char class_gram[]){ // crée un arbre avec un noeud root 
     return T;
 }
 
+
+int isNodeWord(p_node pn){
+    if(pn == NULL)
+        return 1;
+    return pn->nbForms > 0;
+}
 
 p_node findWordInTree(t_tree tree, str word){ // recherche si le mot "word" est une suite de lettres présentes dans l'arbre "tree"
     // retourne le noeud de la dernière lettre si trouvé, NULL sinon
@@ -135,6 +142,7 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
     int B = 1; //booléen qui décide quand on arrête de parcourir l'arbre (à 1 on continue, à 0 on arrête)
     str word = (str) malloc(sizeof(char));
     word[0]='\0'; // initialisation de la str qui va contenir le mot que l'on obtient en parcourant l'arbre
+
     while (B){ //tant qu'on doit parcourir l'arbre
         int nextChildIndex = rand()%(current->children.childNb);
         // l'indice de la prochaine lettre est un nombre
@@ -166,7 +174,6 @@ bform randomBaseFormInTree(t_tree tree){ //retourne une forme de base aléatoire
 bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree adverbs, t_model phrase){ //retourne une liste de bform aléatoires selon le model
     bform* bformTab = (bform*) calloc(phrase.wordsNb,sizeof(bform));
     for(int i=0; i<phrase.wordsNb; i++){
-        //printf("[word : %d]",i);
         t_word currentWord = phrase.words[i];
         str currentCategory = currentWord.category;
         if(!strcmp(currentCategory,"nom")){
@@ -186,7 +193,6 @@ bform* generateBasePhraseTab(t_tree verbs, t_tree nouns, t_tree adjectives, t_tr
             bformTab[i].node = NULL;
         }
     }
-    //printf(" finished\n");
     return bformTab;
 }
 
@@ -194,10 +200,78 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
     str phraseStr = malloc(sizeof(char));
     phraseStr[0] = '\0';
     bform* bformTab = generateBasePhraseTab(verbs,nouns, adjectives, adverbs, phrase);
-    //printf("phrase found\n");
     for(int i=0; i<phrase.wordsNb; i++){
         addStrSize(&phraseStr,bformTab[i].word);
         addStrSize(&phraseStr," ");
     }
     return phraseStr;
+}
+void printDevCform(cform form){
+    printf("%s : %d attribut(s) :\n",form.word,form.word,form.nbAttributes);
+    for(int i = 0; i< form.nbAttributes; i++){
+        printf("%s | ",form.attributes[i],form.attributes[i]);
+    }
+    printf("\n");
+}
+
+cform* verifybaseform(bform forme,t_word mot){
+    int nbStr = 2;
+    str category = mot.category;
+    if(!strcmp(category,"verbe")){
+        if(!strcmp(mot.attributes[0],"Inf"))
+            nbStr = 1;
+        else
+            nbStr = 3;
+    }
+    str attributmot= combineStrSpaces(mot.attributes,nbStr );
+    p_form_cell temp=forme.node->forms.head;
+    for(int i=0;i<forme.node->nbForms;i++){
+        for(int j=0; j<temp->value->nbAttributes; j++) {
+            if (!strcmp(temp->value->attributes[j], attributmot)) {
+                return temp->value;
+            }
+        }
+        temp=temp->next;
+    }
+    return NULL;
+}
+str combineStrSpaces(str* strTab, int nbStr){ // combine les str contenues dans un tableau en une seule str avec un espace comme séparateur
+    str Newstr = (str) malloc(sizeof(char));
+    Newstr[0]= '\0';
+    for(int i = 0; i<nbStr; i++){
+        addStrSize(&Newstr,strTab[i]);
+        if (i != nbStr-1)
+            addStrChar(&Newstr,' ');
+    }
+    return  Newstr;
+}
+
+cform* findCform(t_tree t,t_word mot){
+    int cpt=0;
+    bform base;
+    do{
+        base= randomBaseFormInTree(t);
+        cform* c=verifybaseform(base,mot);
+        if(c!=NULL){
+            return c;
+        }
+        cpt++;
+    }while(cpt!=400);
+    return NULL;
+
+}
+void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
+    for(int i=0;i<model.wordsNb;i++){
+        if(!strcmp(model.words[i].category,"nom")){
+            printf("%s ",findCform(nom,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"verbe")){
+            printf("%s ",findCform(verbe,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"adjectif")){
+            printf("%s ",findCform(adj,model.words[i])->word);
+        }else if(!strcmp(model.words[i].category,"adverbe")){
+            printf("%s ",findCform(adv,model.words[i])->word);
+        }else{
+            printf("%s ",model.words[i].category);
+        }
+    }
 }

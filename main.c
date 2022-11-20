@@ -38,8 +38,7 @@ int main() {
     char classe_gram[TAILLE_MAX] = "";
     int i;
     int j = 0;
-    //int a=menu();
-    fichier = fopen("C:\\Users\\a\\CLionProjects\\Projet-Algo-L2\\dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
+    fichier = fopen("dictionnaire_non_accentue.txt", "r");/**Ouverture du fichier */
     // on crée les différents types d'arbres vides
     t_tree verbes= createEmptyTree("Verbes");
     t_tree adjectifs= createEmptyTree("Adjectifs");
@@ -90,45 +89,60 @@ int main() {
 
     printf("\n---------tests-----------\n\n");
     //printf("%s\n", randomBaseFormInTree(verbes).word);
-    p_node abaisseur = isWordInTree(noms, "abattu");
-    printf("%d", abaisseur->children.childNb);
+    //searchWordInTree(noms,"a");
     //printf("\n");
+    /*
+    p_node pNode = findWordInTree(verbes, "abaisser");
+    printf("pnode : %u\n", pNode);
+    cform* forme1 = pNode->forms.head->value;
+    printDevCform(*forme1);
+     */
     printf("\n--------menu--------\n\n");
     int b=1;
     do {
-        int a = menu();
+        int a = menu(verbes,noms,adjectifs,adverbes);
         t_model model;
         switch (a){
+            case 0:
+                break;
             case 1:
                 model = createRandomModel1();
+                printDevModel(model);
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 2:
                 model = createRandomModel2();
+                printDevModel(model);
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 3:
                 model = createRandomModel3();
+                printDevModel(model);
+                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
                 break;
             case 4:
-                model = createRandomModel3();
+                model = createRandomModel1();
+                printDevModel(model);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 5:
-                model = createRandomModel3();
+                model = createRandomModel2();
+                printDevModel(model);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
             case 6:
                 model = createRandomModel3();
+                printDevModel(model);
+                PrintCform(model,noms,verbes,adjectifs,adverbes);
                 break;
         }
         printf("\n");
-        printDevModel(model);
         printf("\n");
         do{
             printf("Continuer tapez 1 sinon 0:");
             scanf("%d",&b);
         }while(b<0 || b>1);
-        switch (b) {
-            case 1:
-                printf("\n%s\n\n",generateBasePhraseStr(verbes,noms,adjectifs,adjectifs,model));
-        }
+
     }while (b==1);
     return 0;
 };
