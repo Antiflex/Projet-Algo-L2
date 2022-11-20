@@ -74,8 +74,46 @@ p_node findNode(p_node pn, char c) { //  Pas utile mais elle reste symboliquemen
     return temp1;
 }
 
-int isNodeWord(p_node pn){
+void addIntToStart(t_tab* tab, int val){ //ajoute "val" au début du tableau tab
+    int* newtab = calloc(tab->len +1,sizeof (int));
+    for(int i=0; i<tab->len ;i++) {
+        newtab[i + 1] = tab->tab[i];
+    }
+    tab->len++;
+    newtab[0] = val;
+    (*tab).tab = newtab;
+}
+
+p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes){ //recherche l'existence d'une forme fléchie "word" dans un p_node et ses enfants
+    //parcours est un pointeur vers le tableau qui représentera les parcours des enfants
+    //wordRes est un pointeur vers la forme de base qui contient la forme fléchie qu'on recherche
+    p_node res = NULL;
     if(pn == NULL)
-        return 0;
-    return pn->nbForms > 0;
+        res = NULL;
+    else{// on recherche parmis les cforms du p_node passé en paramètres s'il existe une cform dont le mot est "word"
+        form_list formList = pn->forms;
+        int nbforms = pn->nbForms;
+        cform* currentNodeForm = searchCformInList(formList,nbforms,word);
+        if(currentNodeForm != NULL)
+            res = pn; //si le mot recherché est parmi les cform de "pn" alors on retourne "pn"
+        else{ //sinon on recherche parmi ses enfants
+            if(pn->children.childNb > 0) { //s'il a des enfants alors on les parcourt et lance la même recherche parmi eux
+                p_child child = pn->children.head;
+                for (int i = 0; i < pn->children.childNb; i++) {
+                    form_list list = child->nodeValue->forms;
+                    if(findNodeCform(child->nodeValue,word,parcours,wordRes) != NULL) { // si parmi les enfants on a resultat non NULL alors ce sera notre resultat
+                        res = child->nodeValue; // on doit aussi ajouter le numéro de l'enfant au tableau du parcours et la lettre au mot resultant
+                        addIntToStart(parcours,i);
+                        printf("%d : ",i);
+                    }
+                    child = child->next;
+                }
+            }
+            else
+                res = NULL; // si le p_node n'a pas d'enfants alors on retourne NULL puisqu'on a rien trouvé
+        }
+    }
+    if(res!=NULL)
+        printf("%u:%c\n",res,pn->letter);
+    return res;
 }

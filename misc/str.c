@@ -25,3 +25,11 @@ void addStrChar(str* dest, char addend){ //ajoute le char "c" à la fin de "dest
     addStrSize(dest, createStrChar(addend));
 }
 
+void addStrCharStart(str* dest, char addend){ //ajoute le char "c" au début de "dest" en ajustant la taille physique
+    str Newstr = (str) calloc(strlen(*dest) + 2,sizeof (char));
+    Newstr[0] = addend;
+    for(int i=0 ; i< strlen(*dest);i++)
+        Newstr[i+1] = (*dest)[i];
+    *dest = Newstr;
+}
+

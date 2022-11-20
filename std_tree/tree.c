@@ -6,37 +6,9 @@
 #include <stdlib.h>
 #include "function.h"
 
-#define MAX 10
+#define MAX 20
 
-p_node* createWordNodeTab(str word){ //crée un tableau de p_node qui, dans l'ordre, forment un mot,
-    // les noeuds créés n'ont aucun lien de parenté
-    int len = strlen(word);
-    p_node* nodeTab = (p_node*) calloc(len,sizeof(p_node));
-    for(int i=0; i<len; i++)
-        nodeTab[i] = createNode(word[i]);
 
-    return nodeTab;
-}
-
-p_node addWord(p_node current, str word){ // ajoute un mot (forme de base) à l'arbre à partir d'un noeud
-    p_node temp = current;
-    int i=1;
-    while (i<strlen(word)){
-        p_node IsChild = findChild(temp, word[i]); //on cherche si la 2ème lettre existe dans les enfants du noeud current
-        if ( IsChild != NULL){
-            //si la lettre existe :
-            temp = IsChild;
-        }
-        else{ // problème ici
-            printf("k\n");
-            p_node new_child= createNode(word[i]);
-            addChild(temp, new_child);
-            temp = new_child;
-        }
-        i++;
-    }
-    return temp; //retourne la fin du mot /dernière lettre
-}
 
 str* splitStrColon(str string){ // renvoie une liste de str à partir d'une str qui utilise ':' comme séparateur
     int nbStr = isdeuxpoints(string)+1;
@@ -77,8 +49,8 @@ p_node addWordToTree(t_tree tree,str flechie, str non_flechie, str information){
     }
     cform* lastNodeForm = createCform(attributes,flechie,nbAttributes);
     //print :
-    printf("\n%u\n[1]",currentLetterNode);
-    printDevCform(*lastNodeForm);
+    //printf("\n%u\n[1]",currentLetterNode);
+    //printDevCform(*lastNodeForm);
     p_form_cell newFormCell = createCell(lastNodeForm);
     addHeadList(&currentLetterNode->forms,newFormCell);
     currentLetterNode->nbForms++;
@@ -207,7 +179,7 @@ str generateBasePhraseStr(t_tree verbs, t_tree nouns, t_tree adjectives, t_tree 
     return phraseStr;
 }
 void printDevCform(cform form){
-    printf("%s : %d attribut(s) :\n",form.word,form.word,form.nbAttributes);
+    printf("%s : %d attribut(s) :\n",form.word,form.nbAttributes);
     for(int i = 0; i< form.nbAttributes; i++){
         printf("%s | ",form.attributes[i],form.attributes[i]);
     }
@@ -263,6 +235,30 @@ cform* findCform(t_tree t,t_word mot){
 void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
     for(int i=0;i<model.wordsNb;i++){
         if(!strcmp(model.words[i].category,"nom")){
+            // on affiche un déterminant avant le nom
+            int defini = 0;
+            if(rand()%2)
+                defini = 1;
+            if(!strcmp(model.words[i].attributes[1],"PL")){
+                if(defini)
+                    printf("les ");
+                else
+                    printf("des ");
+            }
+            else{
+                if(!strcmp(model.words[i].attributes[0],"Mas")) {
+                    if(defini)
+                        printf("le ");
+                    else
+                        printf("un ");
+                }
+                else{
+                    if(defini)
+                        printf("la ");
+                    else
+                        printf("une ");
+                }
+            }
             printf("%s ",findCform(nom,model.words[i])->word);
         }else if(!strcmp(model.words[i].category,"verbe")){
             printf("%s ",findCform(verbe,model.words[i])->word);
@@ -274,4 +270,8 @@ void PrintCform(t_model model, t_tree nom,t_tree verbe,t_tree adj,t_tree adv){
             printf("%s ",model.words[i].category);
         }
     }
+}
+
+cform findCformInTree(t_tree tree, str word){
+    return;
 }

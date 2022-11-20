@@ -10,8 +10,7 @@
 
 #define TAILLE_MAX 1000/**Taille mmaximum des tableaux*/
 #define SEEK_START 1/**Ligne à laquelle on commence la recherche dans le dictionnaire*/
-#define SEEK_fin 300/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
-
+#define SEEK_fin 5000/**Ligne à laquelle on finit la recherche dans le dictionnaire*/
 
 int main1(){
     t_tree verbes = createEmptyTree("verbes");
@@ -88,15 +87,27 @@ int main() {
     printf("\n---------arbre fini-----------\n");
 
     printf("\n---------tests-----------\n\n");
-    //printf("%s\n", randomBaseFormInTree(verbes).word);
-    //searchWordInTree(noms,"a");
-    //printf("\n");
-    /*
-    p_node pNode = findWordInTree(verbes, "abaisser");
-    printf("pnode : %u\n", pNode);
-    cform* forme1 = pNode->forms.head->value;
-    printDevCform(*forme1);
-     */
+
+    str* mot = malloc(sizeof(str));
+    *mot = calloc(2,sizeof(char));
+    (*mot)[0] = 'a';
+    (*mot)[1] = '\0';
+
+    addStrCharStart(mot,'o');
+    printf("%s\n",*mot);
+
+    p_tab parcours = malloc(sizeof(t_tab));
+    parcours->len = 0;
+
+    p_node pn = findNodeCform(noms.root,"adoptifs",parcours,NULL);
+
+    for (int i=0; i<parcours->len; i++)
+        printf("%d ",parcours->tab[i]);
+
+    printf("\n%u : \n", pn);
+    if(pn!=NULL)
+        printDevCform(*pn->forms.head->value);
+
     printf("\n--------menu--------\n\n");
     int b=1;
     do {

@@ -14,6 +14,6 @@ typedef struct{
 //prototypes
 
 void addHeadList(form_list* list, p_form_cell pc);
-
+cform* searchCformInList(form_list list, int nbforms, str word);
 
 #endif //PROJET_ALGO_L2_FORM_LIST_H

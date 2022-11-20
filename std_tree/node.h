@@ -55,6 +55,14 @@ typedef struct s_bform{
     str word;
 }bform;
 
+//structure d'un tableau d'entiers
+
+typedef struct s_tab{
+    int* tab;
+    int len;
+}t_tab;
+
+typedef t_tab * p_tab;
 
 //prototypes
 
@@ -64,6 +72,8 @@ void addConjForm(p_node pn, cform form);
 p_node findChild(p_node pn, char letter);
 void addChild(p_node pn, p_node childNode);
 p_node findNode(p_node pn, char c);
+p_node findNodeCform(p_node pn, str word, t_tab* parcours, str* wordRes);
+void addIntToStart(t_tab* tab, int val);
 
 #endif //PROJET_ALGO_L2_NODE_H
 
